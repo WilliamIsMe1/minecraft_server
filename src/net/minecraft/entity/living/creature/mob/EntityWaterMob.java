@@ -1,0 +1,32 @@
+package net.minecraft.entity.living.creature.mob;
+
+import net.minecraft.entity.living.ILiving;
+import net.minecraft.entity.living.creature.EntityCreature;
+import net.minecraft.util.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+
+public class EntityWaterMob extends EntityCreature implements ILiving {
+	public EntityWaterMob(World var1) {
+		super(var1);
+	}
+
+	public boolean canBreatheUnderwater() {
+		return true;
+	}
+
+	public void writeEntityToNBT(NBTTagCompound var1) {
+		super.writeEntityToNBT(var1);
+	}
+
+	public void readEntityFromNBT(NBTTagCompound var1) {
+		super.readEntityFromNBT(var1);
+	}
+
+	public boolean getCanSpawnHere() {
+		return this.worldObj.checkIfAABBIsClear(this.boundingBox);
+	}
+
+	public int getTalkInterval() {
+		return 120;
+	}
+}
