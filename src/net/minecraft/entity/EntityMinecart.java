@@ -8,7 +8,7 @@ import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.core.ItemStack;
 import net.minecraft.item.container.inventory.IInventory;
 import net.minecraft.item.core.Item;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.nbt.NBTTagList;
 import net.minecraft.world.World;
@@ -52,7 +52,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 	protected void entityInit() {
 	}
 
-	public AxisAlignedBB func_89_d(net.minecraft.entity.Entity var1) {
+	public net.minecraft.misc.AxisAlignedBB func_89_d(net.minecraft.entity.Entity var1) {
 		return var1.boundingBox;
 	}
 
@@ -81,7 +81,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 	}
 
 	public boolean attackEntityFrom(net.minecraft.entity.Entity var1, int var2) {
-		if(!this.worldObj.singleplayerWorld && !this.isDead) {
+		if(this.worldObj.multiplayerWorld && !this.isDead) {
 			this.forwardDirection = -this.forwardDirection;
 			this.field_9167_b = 10;
 			this.setBeenAttacked();
@@ -174,7 +174,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 		}
 
 		double var7;
-		if(this.worldObj.singleplayerWorld && this.field_9163_an > 0) {
+		if(!this.worldObj.multiplayerWorld && this.field_9163_an > 0) {
 			if(this.field_9163_an > 0) {
 				double var46 = this.posX + (this.field_9162_ao - this.posX) / (double)this.field_9163_an;
 				double var47 = this.posY + (this.field_9161_ap - this.posY) / (double)this.field_9163_an;
@@ -603,7 +603,7 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 	}
 
 	public void applyEntityCollision(Entity var1) {
-		if(!this.worldObj.singleplayerWorld) {
+		if(this.worldObj.multiplayerWorld) {
 			if(var1 != this.riddenByEntity) {
 				if(var1 instanceof EntityLiving && !(var1 instanceof net.minecraft.entity.living.EntityPlayer) && this.minecartType == 0 && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.01D && this.riddenByEntity == null && var1.ridingEntity == null) {
 					var1.mountEntity(this);
@@ -725,11 +725,11 @@ public class EntityMinecart extends net.minecraft.entity.Entity implements IInve
 				return true;
 			}
 
-			if(!this.worldObj.singleplayerWorld) {
+			if(this.worldObj.multiplayerWorld) {
 				var1.mountEntity(this);
 			}
 		} else if(this.minecartType == 1) {
-			if(!this.worldObj.singleplayerWorld) {
+			if(this.worldObj.multiplayerWorld) {
 				var1.displayGUIChest(this);
 			}
 		} else if(this.minecartType == 2) {

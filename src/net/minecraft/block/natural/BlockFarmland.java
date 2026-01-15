@@ -1,7 +1,7 @@
 package net.minecraft.block.natural;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.src.AxisAlignedBB;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.entity.Entity;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class BlockFarmland extends Block {
-	protected BlockFarmland(int var1) {
+	public BlockFarmland(int var1) {
 		super(var1, Material.ground);
 		this.blockIndexInTexture = 87;
 		this.setTickOnLoad(true);
@@ -18,19 +18,27 @@ public class BlockFarmland extends Block {
 	}
 
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
-		return AxisAlignedBB.getBoundingBoxFromPool((double)(var2 + 0), (double)(var3 + 0), (double)(var4 + 0), (double)(var2 + 1), (double)(var3 + 1), (double)(var4 + 1));
+		return AxisAlignedBB.getBoundingBoxFromPool(var2, var3, var4, var2 + 1, var3 + 1, var4 + 1);
 	}
 
 	public boolean isOpaqueCube() {
 		return false;
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
-		return var1 == 1 && var2 > 0 ? this.blockIndexInTexture - 1 : (var1 == 1 ? this.blockIndexInTexture : 2);
+		if (var1 == 1 && var2 > 0) {
+			return blockIndexInTexture - 1;
+		} else {
+			if (var1 == 1) {
+				return blockIndexInTexture;
+			} else {
+				return (2);
+			}
+		}
 	}
 
 	public void updateTick(World var1, int var2, int var3, int var4, Random var5) {

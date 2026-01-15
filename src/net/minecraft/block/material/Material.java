@@ -3,46 +3,46 @@ package net.minecraft.block.material;
 import net.minecraft.map.MapColor;
 
 public class Material {
-	public static final Material air = new MaterialTransparent(MapColor.field_28199_b);
-	public static final Material grass = new Material(MapColor.field_28198_c);
-	public static final Material ground = new Material(MapColor.field_28189_l);
-	public static final Material wood = (new Material(MapColor.field_28186_o)).setBurning();
-	public static final Material rock = (new Material(MapColor.field_28188_m)).func_31058_n();
-	public static final Material iron = (new Material(MapColor.field_28193_h)).func_31058_n();
-	public static final Material water = (new MaterialLiquid(MapColor.field_28187_n)).setNoPushMobility();
-	public static final Material lava = (new MaterialLiquid(MapColor.field_28195_f)).setNoPushMobility();
-	public static final Material leaves = (new Material(MapColor.field_28192_i)).setBurning().func_28129_i().setNoPushMobility();
-	public static final Material plants = (new MaterialLogic(MapColor.field_28192_i)).setNoPushMobility();
-	public static final Material sponge = new Material(MapColor.field_28196_e);
-	public static final Material cloth = (new Material(MapColor.field_28196_e)).setBurning();
-	public static final Material fire = (new MaterialTransparent(MapColor.field_28199_b)).setNoPushMobility();
-	public static final Material sand = new Material(MapColor.field_28197_d);
-	public static final Material circuits = (new MaterialLogic(MapColor.field_28199_b)).setNoPushMobility();
-	public static final Material glass = (new Material(MapColor.field_28199_b)).func_28129_i();
-	public static final Material tnt = (new Material(MapColor.field_28195_f)).setBurning().func_28129_i();
-	public static final Material wug = (new Material(MapColor.field_28192_i)).setNoPushMobility();
-	public static final Material ice = (new Material(MapColor.field_28194_g)).func_28129_i();
-	public static final Material snow = (new MaterialLogic(MapColor.field_28191_j)).func_27089_f().func_28129_i().func_31058_n().setNoPushMobility();
-	public static final Material builtSnow = (new Material(MapColor.field_28191_j)).func_31058_n();
-	public static final Material cactus = (new Material(MapColor.field_28192_i)).func_28129_i().setNoPushMobility();
-	public static final Material clay = new Material(MapColor.field_28190_k);
-	public static final Material pumpkin = (new Material(MapColor.field_28192_i)).setNoPushMobility();
-	public static final Material portal = (new MaterialPortal(MapColor.field_28199_b)).setImmovableMobility();
-	public static final Material cakeMaterial = (new Material(MapColor.field_28199_b)).setNoPushMobility();
-	public static final Material web = (new Material(MapColor.field_28196_e)).func_31058_n().setNoPushMobility();
-	public static final Material piston = (new Material(MapColor.field_28188_m)).setImmovableMobility();
+	public static final Material air = new MaterialTransparent(MapColor.airColor);
+	public static final Material grass = new Material(MapColor.grassColor);
+	public static final Material ground = new Material(MapColor.dirtColor);
+	public static final Material wood = (new Material(MapColor.woodColor)).setBurning();
+	public static final Material rock = (new Material(MapColor.stoneColor)).setNoHarvest();
+	public static final Material iron = (new Material(MapColor.ironColor)).setNoHarvest();
+	public static final Material water = (new MaterialLiquid(MapColor.waterColor)).setNoPushMobility();
+	public static final Material lava = (new MaterialLiquid(MapColor.tntColor)).setNoPushMobility();
+	public static final Material leaves = (new Material(MapColor.foliageColor)).setBurning().setIsTranslucent().setNoPushMobility();
+	public static final Material plants = (new MaterialLogic(MapColor.foliageColor)).setNoPushMobility();
+	public static final Material sponge = new Material(MapColor.clothColor);
+	public static final Material cloth = (new Material(MapColor.clothColor)).setBurning();
+	public static final Material fire = (new MaterialTransparent(MapColor.airColor)).setNoPushMobility();
+	public static final Material sand = new Material(MapColor.sandColor);
+	public static final Material circuits = (new MaterialLogic(MapColor.airColor)).setNoPushMobility();
+	public static final Material glass = (new Material(MapColor.airColor)).setIsTranslucent();
+	public static final Material tnt = (new Material(MapColor.tntColor)).setBurning().setIsTranslucent();
+	public static final Material wug = (new Material(MapColor.foliageColor)).setNoPushMobility();
+	public static final Material ice = (new Material(MapColor.iceColor)).setIsTranslucent();
+	public static final Material snow = (new MaterialLogic(MapColor.snowColor)).setIsGroundCover().setIsTranslucent().setNoHarvest().setNoPushMobility();
+	public static final Material builtSnow = (new Material(MapColor.snowColor)).setNoHarvest();
+	public static final Material cactus = (new Material(MapColor.foliageColor)).setIsTranslucent().setNoPushMobility();
+	public static final Material clay = new Material(MapColor.clayColor);
+	public static final Material pumpkin = (new Material(MapColor.foliageColor)).setNoPushMobility();
+	public static final Material portal = (new MaterialPortal(MapColor.airColor)).setImmovableMobility();
+	public static final Material cakeMaterial = (new Material(MapColor.airColor)).setNoPushMobility();
+	public static final Material web = (new Material(MapColor.clothColor)).setNoHarvest().setNoPushMobility();
+	public static final Material piston = (new Material(MapColor.stoneColor)).setImmovableMobility();
 	private boolean canBurn;
-	private boolean field_27091_A;
-	private boolean isTranslucent;
-	public final MapColor field_28131_A;
-	private boolean field_31061_G = true;
+	private boolean groundCover;
+	private boolean isOpaque = true;
+	public final MapColor materialMapColor;
+	private boolean canHarvest = true;
 	private int mobilityFlag;
 
 	public Material(MapColor var1) {
-		this.field_28131_A = var1;
+		this.materialMapColor = var1;
 	}
 
-	public boolean getIsLiquid() {
+	public boolean isLiquid() {
 		return false;
 	}
 
@@ -58,13 +58,13 @@ public class Material {
 		return true;
 	}
 
-	private Material func_28129_i() {
-		this.isTranslucent = true;
+	private Material setIsTranslucent() {
+		this.isOpaque = false;
 		return this;
 	}
 
-	private Material func_31058_n() {
-		this.field_31061_G = false;
+	private Material setNoHarvest() {
+		this.canHarvest = false;
 		return this;
 	}
 
@@ -77,21 +77,21 @@ public class Material {
 		return this.canBurn;
 	}
 
-	public Material func_27089_f() {
-		this.field_27091_A = true;
+	public Material setIsGroundCover() {
+		this.groundCover = true;
 		return this;
 	}
 
-	public boolean func_27090_g() {
-		return this.field_27091_A;
+	public boolean getIsGroundCover() {
+		return this.groundCover;
 	}
 
 	public boolean getIsOpaque() {
-		return this.isTranslucent ? false : this.getIsSolid();
+		return !this.isOpaque ? false : this.getIsSolid();
 	}
 
 	public boolean func_31055_i() {
-		return this.field_31061_G;
+		return this.canHarvest;
 	}
 
 	public int getMaterialMobility() {

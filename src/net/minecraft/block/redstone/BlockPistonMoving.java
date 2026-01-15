@@ -6,7 +6,7 @@ import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.tileentity.TileEntityPiston;
 import net.minecraft.entity.living.EntityPlayer;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -46,12 +46,12 @@ public class BlockPistonMoving extends BlockContainer {
 		return false;
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
 	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {
-		if(!var1.singleplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
+		if(var1.multiplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
 			var1.setBlockWithNotify(var2, var3, var4, 0);
 			return true;
 		} else {
@@ -64,7 +64,7 @@ public class BlockPistonMoving extends BlockContainer {
 	}
 
 	public void dropBlockAsItemWithChance(net.minecraft.world.World var1, int var2, int var3, int var4, int var5, float var6) {
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			net.minecraft.block.tileentity.TileEntityPiston var7 = this.getTileEntityAtLocation(var1, var2, var3, var4);
 			if(var7 != null) {
 				net.minecraft.block.core.Block.blocksList[var7.getStoredBlockID()].dropBlockAsItem(var1, var2, var3, var4, var7.func_31005_e());
@@ -73,7 +73,7 @@ public class BlockPistonMoving extends BlockContainer {
 	}
 
 	public void onNeighborBlockChange(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
-		if(!var1.singleplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
+		if(var1.multiplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
 		}
 
 	}
@@ -82,7 +82,7 @@ public class BlockPistonMoving extends BlockContainer {
 		return new net.minecraft.block.tileentity.TileEntityPiston(var0, var1, var2, var3, var4);
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public net.minecraft.misc.AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
 		net.minecraft.block.tileentity.TileEntityPiston var5 = this.getTileEntityAtLocation(var1, var2, var3, var4);
 		if(var5 == null) {
 			return null;
@@ -121,7 +121,7 @@ public class BlockPistonMoving extends BlockContainer {
 
 	}
 
-	public AxisAlignedBB func_31032_a(World var1, int var2, int var3, int var4, int var5, float var6, int var7) {
+	public net.minecraft.misc.AxisAlignedBB func_31032_a(World var1, int var2, int var3, int var4, int var5, float var6, int var7) {
 		if(var5 != 0 && var5 != this.blockID) {
 			AxisAlignedBB var8 = Block.blocksList[var5].getCollisionBoundingBoxFromPool(var1, var2, var3, var4);
 			if(var8 == null) {

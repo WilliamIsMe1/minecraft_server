@@ -6,7 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
 public class BlockWorkbench extends Block {
-	protected BlockWorkbench(int var1) {
+	public BlockWorkbench(int var1) {
 		super(var1, Material.wood);
 		this.blockIndexInTexture = 59;
 	}
@@ -16,7 +16,7 @@ public class BlockWorkbench extends Block {
 	}
 
 	public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
-		if(var1.singleplayerWorld) {
+		if(!var1.multiplayerWorld) {
 			return true;
 		} else {
 			var5.displayWorkbenchGUI(var2, var3, var4);

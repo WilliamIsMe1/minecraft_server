@@ -13,27 +13,19 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.minecraft.src.AxisAlignedBB;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.chunk.ChunkCoordinates;
-import net.minecraft.src.ConsoleCommandHandler;
-import net.minecraft.src.ConsoleLogManager;
-import net.minecraft.src.ConvertProgressUpdater;
 import net.minecraft.entity.EntityTracker;
-import net.minecraft.src.ICommandListener;
-import net.minecraft.src.IProgressUpdate;
+import net.minecraft.misc.IProgressUpdate;
 import net.minecraft.core.save.ISaveFormat;
-import net.minecraft.src.IUpdatePlayerListBox;
 import net.minecraft.network.NetworkListenThread;
 import net.minecraft.network.packet.Packet4UpdateTime;
-import net.minecraft.src.PropertyManager;
+import net.minecraft.util.PropertyManager;
 import net.minecraft.core.save.SaveConverterMcRegion;
 import net.minecraft.core.save.SaveOldDir;
-import net.minecraft.src.ServerCommand;
-import net.minecraft.src.ServerConfigurationManager;
-import net.minecraft.src.ServerGUI;
 import net.minecraft.achievement.stats.StatList;
-import net.minecraft.src.ThreadServerApplication;
-import net.minecraft.src.ThreadSleepForever;
+import net.minecraft.core.ThreadServerApplication;
+import net.minecraft.core.ThreadSleepForever;
 import net.minecraft.core.Vec3D;
 import net.minecraft.world.WorldManager;
 import net.minecraft.world.WorldServer;
@@ -369,7 +361,7 @@ public class MinecraftServer implements Runnable, ICommandListener {
 	}
 
 	public static void main(String[] var0) {
-		StatList.func_27092_a();
+		StatList.initializeStaticMembers();
 
 		try {
 			MinecraftServer var1 = new MinecraftServer();

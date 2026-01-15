@@ -1,9 +1,9 @@
 package net.minecraft.achievement.stats;
 
-import net.minecraft.src.StringTranslate;
+import net.minecraft.core.StringTranslate;
 
 public class StatCollector {
-	private static StringTranslate localizedName = StringTranslate.getInstance();
+	private static final StringTranslate localizedName = StringTranslate.getInstance();
 
 	public static String translateToLocal(String var0) {
 		return localizedName.translateKey(var0);

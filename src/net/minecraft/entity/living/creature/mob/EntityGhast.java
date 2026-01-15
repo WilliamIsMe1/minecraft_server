@@ -3,7 +3,7 @@ package net.minecraft.entity.living.creature.mob;
 import net.minecraft.core.Vec3D;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.item.core.Item;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -36,7 +36,7 @@ public class EntityGhast extends net.minecraft.entity.EntityFlying implements IM
 	}
 
 	protected void updatePlayerActionState() {
-		if(!this.worldObj.singleplayerWorld && this.worldObj.difficultySetting == 0) {
+		if(this.worldObj.multiplayerWorld && this.worldObj.difficultySetting == 0) {
 			this.setEntityDead();
 		}
 
@@ -109,7 +109,7 @@ public class EntityGhast extends net.minecraft.entity.EntityFlying implements IM
 			}
 		}
 
-		if(!this.worldObj.singleplayerWorld) {
+		if(this.worldObj.multiplayerWorld) {
 			byte var21 = this.dataWatcher.getWatchableObjectByte(16);
 			byte var12 = (byte)(this.attackCounter > 10 ? 1 : 0);
 			if(var21 != var12) {

@@ -12,9 +12,9 @@ import java.util.List;
 
 public class CraftingManager {
 	private static final CraftingManager instance = new CraftingManager();
-	private List recipes = new ArrayList();
+	private final List<IRecipe> recipes = new ArrayList<>();
 
-	public static final CraftingManager getInstance() {
+	public static CraftingManager getInstance() {
 		return instance;
 	}
 
@@ -54,7 +54,7 @@ public class CraftingManager {
 		this.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"X", "#", Character.valueOf('X'), net.minecraft.item.core.Item.coal, Character.valueOf('#'), net.minecraft.item.core.Item.stick});
 		this.addRecipe(new ItemStack(Block.torchWood, 4), new Object[]{"X", "#", Character.valueOf('X'), new ItemStack(net.minecraft.item.core.Item.coal, 1, 1), Character.valueOf('#'), net.minecraft.item.core.Item.stick});
 		this.addRecipe(new ItemStack(net.minecraft.item.core.Item.bowlEmpty, 4), new Object[]{"# #", " # ", Character.valueOf('#'), Block.planks});
-		this.addRecipe(new ItemStack(Block.minecartTrack, 16), new Object[]{"X X", "X#X", "X X", Character.valueOf('X'), net.minecraft.item.core.Item.ingotIron, Character.valueOf('#'), net.minecraft.item.core.Item.stick});
+		this.addRecipe(new ItemStack(Block.rail, 16), new Object[]{"X X", "X#X", "X X", Character.valueOf('X'), net.minecraft.item.core.Item.ingotIron, Character.valueOf('#'), net.minecraft.item.core.Item.stick});
 		this.addRecipe(new ItemStack(Block.railPowered, 6), new Object[]{"X X", "X#X", "XRX", Character.valueOf('X'), net.minecraft.item.core.Item.ingotGold, Character.valueOf('R'), net.minecraft.item.core.Item.redstone, Character.valueOf('#'), net.minecraft.item.core.Item.stick});
 		this.addRecipe(new ItemStack(Block.railDetector, 6), new Object[]{"X X", "X#X", "XRX", Character.valueOf('X'), net.minecraft.item.core.Item.ingotIron, Character.valueOf('R'), net.minecraft.item.core.Item.redstone, Character.valueOf('#'), Block.pressurePlateStone});
 		this.addRecipe(new ItemStack(net.minecraft.item.core.Item.minecartEmpty, 1), new Object[]{"# #", "###", Character.valueOf('#'), net.minecraft.item.core.Item.ingotIron});
@@ -173,7 +173,7 @@ public class CraftingManager {
 		return null;
 	}
 
-	public List getRecipeList() {
+	public List<IRecipe> getRecipeList() {
 		return this.recipes;
 	}
 }

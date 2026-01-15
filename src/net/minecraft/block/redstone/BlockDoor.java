@@ -6,13 +6,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.core.Vec3D;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.core.Item;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
 public class BlockDoor extends net.minecraft.block.core.Block {
-	protected BlockDoor(int var1, net.minecraft.block.material.Material var2) {
+	public BlockDoor(int var1, net.minecraft.block.material.Material var2) {
 		super(var1, var2);
 		this.blockIndexInTexture = 97;
 		if(var2 == net.minecraft.block.material.Material.iron) {
@@ -48,7 +49,7 @@ public class BlockDoor extends net.minecraft.block.core.Block {
 		return false;
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
@@ -157,7 +158,7 @@ public class BlockDoor extends net.minecraft.block.core.Block {
 			}
 
 			if(var7) {
-				if(!var1.singleplayerWorld) {
+				if(var1.multiplayerWorld) {
 					this.dropBlockAsItem(var1, var2, var3, var4, var6);
 				}
 			} else if(var5 > 0 && Block.blocksList[var5].canProvidePower()) {
@@ -172,9 +173,9 @@ public class BlockDoor extends net.minecraft.block.core.Block {
 		return (var1 & 8) != 0 ? 0 : (this.blockMaterial == Material.iron ? net.minecraft.item.core.Item.doorSteel.shiftedIndex : Item.doorWood.shiftedIndex);
 	}
 
-	public MovingObjectPosition collisionRayTrace(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.core.Vec3D var5, Vec3D var6) {
-		this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
-		return super.collisionRayTrace(var1, var2, var3, var4, var5, var6);
+	public MovingObjectPosition collisionRayTrace(net.minecraft.world.World world, int var2, int var3, int var4, net.minecraft.core.Vec3D var5, Vec3D var6) {
+		this.setBlockBoundsBasedOnState(world, var2, var3, var4);
+		return super.collisionRayTrace(world, var2, var3, var4, var5, var6);
 	}
 
 	public int func_271_d(int var1) {

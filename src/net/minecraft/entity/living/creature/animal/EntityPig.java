@@ -42,7 +42,7 @@ public class EntityPig extends EntityAnimal {
 	}
 
 	public boolean interact(net.minecraft.entity.living.EntityPlayer var1) {
-		if(!this.getSaddled() || this.worldObj.singleplayerWorld || this.riddenByEntity != null && this.riddenByEntity != var1) {
+		if(!this.getSaddled() || !this.worldObj.multiplayerWorld || this.riddenByEntity != null && this.riddenByEntity != var1) {
 			return false;
 		} else {
 			var1.mountEntity(this);
@@ -68,7 +68,7 @@ public class EntityPig extends EntityAnimal {
 	}
 
 	public void onStruckByLightning(EntityLightningBolt var1) {
-		if(!this.worldObj.singleplayerWorld) {
+		if(this.worldObj.multiplayerWorld) {
 			EntityPigZombie var2 = new EntityPigZombie(this.worldObj);
 			var2.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
 			this.worldObj.entityJoinedWorld(var2);
@@ -79,7 +79,7 @@ public class EntityPig extends EntityAnimal {
 	protected void fall(float var1) {
 		super.fall(var1);
 		if(var1 > 5.0F && this.riddenByEntity instanceof net.minecraft.entity.living.EntityPlayer) {
-			((EntityPlayer)this.riddenByEntity).func_27017_a(AchievementList.field_27098_u);
+			((EntityPlayer)this.riddenByEntity).func_27017_a(AchievementList.flyPig);
 		}
 
 	}

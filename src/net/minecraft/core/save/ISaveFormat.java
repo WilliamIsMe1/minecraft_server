@@ -1,6 +1,6 @@
 package net.minecraft.core.save;
 
-import net.minecraft.src.IProgressUpdate;
+import net.minecraft.misc.IProgressUpdate;
 
 public interface ISaveFormat {
 	boolean isOldSaveType(String var1);

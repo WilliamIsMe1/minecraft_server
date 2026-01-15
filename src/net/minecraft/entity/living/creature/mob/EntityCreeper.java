@@ -35,7 +35,7 @@ public class EntityCreeper extends EntityMob {
 	}
 
 	protected void func_28013_b(net.minecraft.entity.Entity var1, float var2) {
-		if(!this.worldObj.singleplayerWorld) {
+		if(this.worldObj.multiplayerWorld) {
 			if(this.timeSinceIgnited > 0) {
 				this.setCreeperState(-1);
 				--this.timeSinceIgnited;
@@ -49,7 +49,7 @@ public class EntityCreeper extends EntityMob {
 
 	public void onUpdate() {
 		this.lastActiveTime = this.timeSinceIgnited;
-		if(this.worldObj.singleplayerWorld) {
+		if(!this.worldObj.multiplayerWorld) {
 			int var1 = this.getCreeperState();
 			if(var1 > 0 && this.timeSinceIgnited == 0) {
 				this.worldObj.playSoundAtEntity(this, "random.fuse", 1.0F, 0.5F);
@@ -93,7 +93,7 @@ public class EntityCreeper extends EntityMob {
 	}
 
 	protected void attackEntity(Entity var1, float var2) {
-		if(!this.worldObj.singleplayerWorld) {
+		if(this.worldObj.multiplayerWorld) {
 			int var3 = this.getCreeperState();
 			if(var3 <= 0 && var2 < 3.0F || var3 > 0 && var2 < 7.0F) {
 				if(this.timeSinceIgnited == 0) {

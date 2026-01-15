@@ -1,6 +1,6 @@
 package net.minecraft.world.chunk;
 
-import net.minecraft.src.IProgressUpdate;
+import net.minecraft.misc.IProgressUpdate;
 import net.minecraft.world.WorldServer;
 
 import java.io.IOException;

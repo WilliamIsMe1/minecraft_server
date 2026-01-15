@@ -62,7 +62,7 @@ public final class ItemStack {
 	public boolean useItem(net.minecraft.entity.living.EntityPlayer var1, World var2, int var3, int var4, int var5, int var6) {
 		boolean var7 = this.getItem().onItemUse(this, var1, var2, var3, var4, var5, var6);
 		if(var7) {
-			var1.addStat(net.minecraft.achievement.stats.StatList.field_25107_A[this.itemID], 1);
+			var1.addStat(net.minecraft.achievement.stats.StatList.useItemStatArray[this.itemID], 1);
 		}
 
 		return var7;
@@ -130,7 +130,7 @@ public final class ItemStack {
 			this.itemDamage += var1;
 			if(this.itemDamage > this.getMaxDamage()) {
 				if(var2 instanceof net.minecraft.entity.living.EntityPlayer) {
-					((net.minecraft.entity.living.EntityPlayer)var2).addStat(net.minecraft.achievement.stats.StatList.field_25105_B[this.itemID], 1);
+					((net.minecraft.entity.living.EntityPlayer)var2).addStat(net.minecraft.achievement.stats.StatList.breakItemStatArray[this.itemID], 1);
 				}
 
 				--this.stackSize;
@@ -147,7 +147,7 @@ public final class ItemStack {
 	public void hitEntity(net.minecraft.entity.living.EntityLiving var1, net.minecraft.entity.living.EntityPlayer var2) {
 		boolean var3 = net.minecraft.item.core.Item.itemsList[this.itemID].hitEntity(this, var1, var2);
 		if(var3) {
-			var2.addStat(net.minecraft.achievement.stats.StatList.field_25107_A[this.itemID], 1);
+			var2.addStat(net.minecraft.achievement.stats.StatList.useItemStatArray[this.itemID], 1);
 		}
 
 	}
@@ -155,7 +155,7 @@ public final class ItemStack {
 	public void func_25124_a(int var1, int var2, int var3, int var4, net.minecraft.entity.living.EntityPlayer var5) {
 		boolean var6 = net.minecraft.item.core.Item.itemsList[this.itemID].func_25007_a(this, var1, var2, var3, var4, var5);
 		if(var6) {
-			var5.addStat(net.minecraft.achievement.stats.StatList.field_25107_A[this.itemID], 1);
+			var5.addStat(net.minecraft.achievement.stats.StatList.useItemStatArray[this.itemID], 1);
 		}
 
 	}
@@ -208,7 +208,7 @@ public final class ItemStack {
 	}
 
 	public void func_28142_b(World var1, EntityPlayer var2) {
-		var2.addStat(StatList.field_25093_z[this.itemID], this.stackSize);
+		var2.addStat(StatList.craftItemStatArray[this.itemID], this.stackSize);
 		Item.itemsList[this.itemID].func_28020_c(this, var1, var2);
 	}
 

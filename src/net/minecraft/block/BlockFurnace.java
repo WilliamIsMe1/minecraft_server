@@ -18,7 +18,7 @@ public class BlockFurnace extends BlockContainer {
 	private final boolean isActive;
 	private static boolean field_28034_c = false;
 
-	protected BlockFurnace(int var1, boolean var2) {
+	public BlockFurnace(int var1, boolean var2) {
 		super(var1, Material.rock);
 		this.isActive = var2;
 		this.blockIndexInTexture = 45;
@@ -34,7 +34,7 @@ public class BlockFurnace extends BlockContainer {
 	}
 
 	private void setDefaultDirection(net.minecraft.world.World var1, int var2, int var3, int var4) {
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			int var5 = var1.getBlockId(var2, var3, var4 - 1);
 			int var6 = var1.getBlockId(var2, var3, var4 + 1);
 			int var7 = var1.getBlockId(var2 - 1, var3, var4);
@@ -65,7 +65,7 @@ public class BlockFurnace extends BlockContainer {
 	}
 
 	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {
-		if(var1.singleplayerWorld) {
+		if(!var1.multiplayerWorld) {
 			return true;
 		} else {
 			net.minecraft.block.tileentity.TileEntityFurnace var6 = (net.minecraft.block.tileentity.TileEntityFurnace)var1.getBlockTileEntity(var2, var3, var4);

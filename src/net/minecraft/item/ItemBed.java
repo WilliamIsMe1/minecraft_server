@@ -18,7 +18,7 @@ public class ItemBed extends Item {
 			return false;
 		} else {
 			++var5;
-			net.minecraft.block.BlockBed var8 = (BlockBed) Block.bed;
+			net.minecraft.block.BlockBed var8 = (BlockBed) Block.blockBed;
 			int var9 = MathHelper.floor_double((double)(var2.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 			byte var10 = 0;
 			byte var11 = 0;

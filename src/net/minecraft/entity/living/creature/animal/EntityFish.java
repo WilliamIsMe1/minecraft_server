@@ -5,11 +5,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityItem;
 import net.minecraft.entity.living.EntityPlayer;
-import net.minecraft.src.AxisAlignedBB;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.item.core.Item;
 import net.minecraft.item.core.ItemStack;
 import net.minecraft.util.MathHelper;
-import net.minecraft.src.MovingObjectPosition;
+import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.core.Vec3D;
 import net.minecraft.world.World;
@@ -104,7 +104,7 @@ public class EntityFish extends net.minecraft.entity.Entity {
 			this.setPosition(var21, var22, var23);
 			this.setRotation(this.rotationYaw, this.rotationPitch);
 		} else {
-			if(!this.worldObj.singleplayerWorld) {
+			if(this.worldObj.multiplayerWorld) {
 				ItemStack var1 = this.angler.getCurrentEquippedItem();
 				if(this.angler.isDead || !this.angler.isEntityAlive() || var1 == null || var1.getItem() != Item.fishingRod || this.getDistanceSqToEntity(this.angler) > 1024.0D) {
 					this.setEntityDead();

@@ -27,7 +27,7 @@ public class EntityMob extends EntityCreature implements IMob {
 
 	public void onUpdate() {
 		super.onUpdate();
-		if(!this.worldObj.singleplayerWorld && this.worldObj.difficultySetting == 0) {
+		if(this.worldObj.multiplayerWorld && this.worldObj.difficultySetting == 0) {
 			this.setEntityDead();
 		}
 

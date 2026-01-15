@@ -3,7 +3,7 @@ package net.minecraft.world.chunk;
 import net.minecraft.block.EnumSkyBlock;
 import net.minecraft.block.tileentity.TileEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.src.AxisAlignedBB;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.Arrays;

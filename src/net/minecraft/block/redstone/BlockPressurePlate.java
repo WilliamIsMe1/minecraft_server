@@ -7,7 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumMobType;
 import net.minecraft.entity.living.EntityLiving;
 import net.minecraft.entity.living.EntityPlayer;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.Random;
 public class BlockPressurePlate extends Block {
 	private net.minecraft.entity.EnumMobType triggerMobType;
 
-	protected BlockPressurePlate(int var1, int var2, net.minecraft.entity.EnumMobType var3, Material var4) {
+	public BlockPressurePlate(int var1, int var2, net.minecraft.entity.EnumMobType var3, Material var4) {
 		super(var1, var2, var4);
 		this.triggerMobType = var3;
 		this.setTickOnLoad(true);
@@ -28,7 +28,7 @@ public class BlockPressurePlate extends Block {
 		return 20;
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public net.minecraft.misc.AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
 		return null;
 	}
 
@@ -36,7 +36,7 @@ public class BlockPressurePlate extends Block {
 		return false;
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
@@ -61,7 +61,7 @@ public class BlockPressurePlate extends Block {
 	}
 
 	public void updateTick(net.minecraft.world.World var1, int var2, int var3, int var4, Random var5) {
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			if(var1.getBlockMetadata(var2, var3, var4) != 0) {
 				this.setStateIfMobInteractsWithPlate(var1, var2, var3, var4);
 			}
@@ -69,7 +69,7 @@ public class BlockPressurePlate extends Block {
 	}
 
 	public void onEntityCollidedWithBlock(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.entity.Entity var5) {
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			if(var1.getBlockMetadata(var2, var3, var4) != 1) {
 				this.setStateIfMobInteractsWithPlate(var1, var2, var3, var4);
 			}
@@ -82,11 +82,11 @@ public class BlockPressurePlate extends Block {
 		float var7 = 2.0F / 16.0F;
 		List var8 = null;
 		if(this.triggerMobType == net.minecraft.entity.EnumMobType.everything) {
-			var8 = var1.getEntitiesWithinAABBExcludingEntity((Entity)null, AxisAlignedBB.getBoundingBoxFromPool((double)((float)var2 + var7), (double)var3, (double)((float)var4 + var7), (double)((float)(var2 + 1) - var7), (double)var3 + 0.25D, (double)((float)(var4 + 1) - var7)));
+			var8 = var1.getEntitiesWithinAABBExcludingEntity((Entity)null, net.minecraft.misc.AxisAlignedBB.getBoundingBoxFromPool((double)((float)var2 + var7), (double)var3, (double)((float)var4 + var7), (double)((float)(var2 + 1) - var7), (double)var3 + 0.25D, (double)((float)(var4 + 1) - var7)));
 		}
 
 		if(this.triggerMobType == net.minecraft.entity.EnumMobType.mobs) {
-			var8 = var1.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBoxFromPool((double)((float)var2 + var7), (double)var3, (double)((float)var4 + var7), (double)((float)(var2 + 1) - var7), (double)var3 + 0.25D, (double)((float)(var4 + 1) - var7)));
+			var8 = var1.getEntitiesWithinAABB(EntityLiving.class, net.minecraft.misc.AxisAlignedBB.getBoundingBoxFromPool((double)((float)var2 + var7), (double)var3, (double)((float)var4 + var7), (double)((float)(var2 + 1) - var7), (double)var3 + 0.25D, (double)((float)(var4 + 1) - var7)));
 		}
 
 		if(this.triggerMobType == EnumMobType.players) {

@@ -25,7 +25,7 @@ public class ItemDye extends Item {
 		if(var1.getItemDamage() == 15) {
 			int var8 = var3.getBlockId(var4, var5, var6);
 			if(var8 == Block.sapling.blockID) {
-				if(!var3.singleplayerWorld) {
+				if(var3.multiplayerWorld) {
 					((BlockSapling) Block.sapling).growTree(var3, var4, var5, var6, var3.rand);
 					--var1.stackSize;
 				}
@@ -34,7 +34,7 @@ public class ItemDye extends Item {
 			}
 
 			if(var8 == Block.crops.blockID) {
-				if(!var3.singleplayerWorld) {
+				if(var3.multiplayerWorld) {
 					((BlockCrops) Block.crops).fertilize(var3, var4, var5, var6);
 					--var1.stackSize;
 				}
@@ -43,7 +43,7 @@ public class ItemDye extends Item {
 			}
 
 			if(var8 == Block.grass.blockID) {
-				if(!var3.singleplayerWorld) {
+				if(var3.multiplayerWorld) {
 					--var1.stackSize;
 
 					label53:

@@ -102,7 +102,7 @@ public class ItemMap extends ItemMapBase {
 												var36 = var27.getBlockID(var33 + var28, var35 - 1, var34 + var29);
 												if(var36 == 0) {
 													var37 = false;
-												} else if(var35 > 0 && var36 > 0 && Block.blocksList[var36].blockMaterial.field_28131_A == net.minecraft.map.MapColor.field_28199_b) {
+												} else if(var35 > 0 && var36 > 0 && Block.blocksList[var36].blockMaterial.materialMapColor == net.minecraft.map.MapColor.airColor) {
 													var37 = false;
 												}
 
@@ -112,7 +112,7 @@ public class ItemMap extends ItemMapBase {
 												}
 
 												if(var37) {
-													if(var36 == 0 || !Block.blocksList[var36].blockMaterial.getIsLiquid()) {
+													if(var36 == 0 || !Block.blocksList[var36].blockMaterial.isLiquid()) {
 														break;
 													}
 
@@ -122,7 +122,7 @@ public class ItemMap extends ItemMapBase {
 													while(true) {
 														int var43 = var27.getBlockID(var33 + var28, var38--, var34 + var29);
 														++var30;
-														if(var38 <= 0 || var43 == 0 || !Block.blocksList[var43].blockMaterial.getIsLiquid()) {
+														if(var38 <= 0 || var43 == 0 || !Block.blocksList[var43].blockMaterial.isLiquid()) {
 															break label164;
 														}
 													}
@@ -162,8 +162,8 @@ public class ItemMap extends ItemMapBase {
 
 							var38 = 0;
 							if(var34 > 0) {
-								net.minecraft.map.MapColor var44 = Block.blocksList[var34].blockMaterial.field_28131_A;
-								if(var44 == net.minecraft.map.MapColor.field_28187_n) {
+								net.minecraft.map.MapColor var44 = Block.blocksList[var34].blockMaterial.materialMapColor;
+								if(var44 == net.minecraft.map.MapColor.waterColor) {
 									var41 = (double)var30 * 0.1D + (double)(var12 + var17 & 1) * 0.2D;
 									var42 = 1;
 									if(var41 < 0.5D) {
@@ -207,7 +207,7 @@ public class ItemMap extends ItemMapBase {
 	}
 
 	public void func_28018_a(net.minecraft.item.core.ItemStack var1, net.minecraft.world.World var2, Entity var3, int var4, boolean var5) {
-		if(!var2.singleplayerWorld) {
+		if(var2.multiplayerWorld) {
 			net.minecraft.map.MapData var6 = this.func_28023_a(var1, var2);
 			if(var3 instanceof net.minecraft.entity.living.EntityPlayer) {
 				net.minecraft.entity.living.EntityPlayer var7 = (net.minecraft.entity.living.EntityPlayer)var3;

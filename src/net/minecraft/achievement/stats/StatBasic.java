@@ -1,7 +1,5 @@
 package net.minecraft.achievement.stats;
 
-import net.minecraft.achievement.stats.IStatType;
-
 public class StatBasic extends StatBase {
 	public StatBasic(int var1, String var2, IStatType var3) {
 		super(var1, var2, var3);
@@ -11,9 +9,9 @@ public class StatBasic extends StatBase {
 		super(var1, var2);
 	}
 
-	public StatBase func_27053_d() {
-		super.func_27053_d();
-		StatList.field_25122_b.add(this);
+	public StatBase registerStat() {
+		super.registerStat();
+		StatList.field_25187_b.add(this);
 		return this;
 	}
 }

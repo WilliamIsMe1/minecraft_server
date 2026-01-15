@@ -107,7 +107,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 			--this.furnaceBurnTime;
 		}
 
-		if(!this.worldObj.singleplayerWorld) {
+		if(this.worldObj.multiplayerWorld) {
 			if(this.furnaceBurnTime == 0 && this.canSmelt()) {
 				this.currentItemBurnTime = this.furnaceBurnTime = this.getItemBurnTime(this.furnaceItemStacks[1]);
 				if(this.furnaceBurnTime > 0) {

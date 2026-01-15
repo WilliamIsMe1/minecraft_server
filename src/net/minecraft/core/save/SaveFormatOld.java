@@ -1,6 +1,8 @@
 package net.minecraft.core.save;
 
-import net.minecraft.src.*;
+import net.minecraft.core.CompressedStreamTools;
+import net.minecraft.misc.IProgressUpdate;
+import net.minecraft.server.PlayerNBTManager;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.WorldInfo;
 
@@ -28,7 +30,7 @@ public class SaveFormatOld implements ISaveFormat {
 			NBTTagCompound var5;
 			if(var3.exists()) {
 				try {
-					var4 = CompressedStreamTools.func_770_a(new FileInputStream(var3));
+					var4 = net.minecraft.core.CompressedStreamTools.func_770_a(new FileInputStream(var3));
 					var5 = var4.getCompoundTag("Data");
 					return new net.minecraft.world.WorldInfo(var5);
 				} catch (Exception var7) {

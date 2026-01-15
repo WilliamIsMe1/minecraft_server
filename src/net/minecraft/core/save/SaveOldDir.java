@@ -1,6 +1,7 @@
 package net.minecraft.core.save;
 
-import net.minecraft.src.*;
+import net.minecraft.server.PlayerNBTManager;
+import net.minecraft.world.WorldProvider;
 import net.minecraft.world.chunk.IChunkLoader;
 import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.chunk.McRegionChunkLoader;

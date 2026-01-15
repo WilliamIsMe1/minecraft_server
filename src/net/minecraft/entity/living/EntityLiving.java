@@ -5,7 +5,7 @@ import net.minecraft.block.StepSound;
 import net.minecraft.block.material.Material;
 import net.minecraft.core.Vec3D;
 import net.minecraft.entity.Entity;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -120,7 +120,7 @@ public abstract class EntityLiving extends net.minecraft.entity.Entity {
 			this.attackEntityFrom((net.minecraft.entity.Entity)null, 1);
 		}
 
-		if(this.isImmuneToFire || this.worldObj.singleplayerWorld) {
+		if(this.isImmuneToFire || !this.worldObj.multiplayerWorld) {
 			this.fire = 0;
 		}
 
@@ -301,7 +301,7 @@ public abstract class EntityLiving extends net.minecraft.entity.Entity {
 	}
 
 	public boolean attackEntityFrom(net.minecraft.entity.Entity var1, int var2) {
-		if(this.worldObj.singleplayerWorld) {
+		if(!this.worldObj.multiplayerWorld) {
 			return false;
 		} else {
 			this.age = 0;
@@ -405,7 +405,7 @@ public abstract class EntityLiving extends net.minecraft.entity.Entity {
 		}
 
 		this.unused_flag = true;
-		if(!this.worldObj.singleplayerWorld) {
+		if(this.worldObj.multiplayerWorld) {
 			this.dropFewItems();
 		}
 
@@ -595,7 +595,7 @@ public abstract class EntityLiving extends net.minecraft.entity.Entity {
 				double var10 = 0.0D;
 
 				for(int var12 = 0; var12 < var9.size(); ++var12) {
-					AxisAlignedBB var13 = (AxisAlignedBB)var9.get(var12);
+					net.minecraft.misc.AxisAlignedBB var13 = (AxisAlignedBB)var9.get(var12);
 					if(var13.maxY > var10) {
 						var10 = var13.maxY;
 					}

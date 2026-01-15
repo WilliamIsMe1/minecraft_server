@@ -5,10 +5,10 @@ public class StepSound {
 	public final float field_1028_b;
 	public final float field_1030_c;
 
-	public StepSound(String var1, float var2, float var3) {
+	public StepSound(String var1, float volume, float pitch) {
 		this.field_1029_a = var1;
-		this.field_1028_b = var2;
-		this.field_1030_c = var3;
+		this.field_1028_b = volume;
+		this.field_1030_c = pitch;
 	}
 
 	public float getVolume() {

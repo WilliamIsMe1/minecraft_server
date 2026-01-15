@@ -4,7 +4,7 @@ import net.minecraft.block.core.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.core.Item;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -14,7 +14,7 @@ public class BlockWeb extends Block {
 		super(var1, var2, Material.web);
 	}
 
-	public void onEntityCollidedWithBlock(net.minecraft.world.World var1, int var2, int var3, int var4, Entity var5) {
+	public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
 		var5.field_27012_bb = true;
 	}
 
@@ -26,7 +26,11 @@ public class BlockWeb extends Block {
 		return null;
 	}
 
-	public boolean isACube() {
+	public int getRenderType() {
+		return 1;
+	}
+
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 

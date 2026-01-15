@@ -6,7 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.map.MapGenBase;
 import net.minecraft.map.MapGenCaves;
 import net.minecraft.world.gen.BiomeGenBase;
-import net.minecraft.src.IProgressUpdate;
+import net.minecraft.misc.IProgressUpdate;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.WorldGenerator;
 import net.minecraft.world.World;

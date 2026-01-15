@@ -19,7 +19,7 @@ import java.util.Random;
 public class BlockDispenser extends BlockContainer {
 	private Random field_28032_a = new Random();
 
-	protected BlockDispenser(int var1) {
+	public BlockDispenser(int var1) {
 		super(var1, Material.rock);
 		this.blockIndexInTexture = 45;
 	}
@@ -38,7 +38,7 @@ public class BlockDispenser extends BlockContainer {
 	}
 
 	private void setDispenserDefaultDirection(net.minecraft.world.World var1, int var2, int var3, int var4) {
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			int var5 = var1.getBlockId(var2, var3, var4 - 1);
 			int var6 = var1.getBlockId(var2, var3, var4 + 1);
 			int var7 = var1.getBlockId(var2 - 1, var3, var4);
@@ -69,7 +69,7 @@ public class BlockDispenser extends BlockContainer {
 	}
 
 	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {
-		if(var1.singleplayerWorld) {
+		if(!var1.multiplayerWorld) {
 			return true;
 		} else {
 			net.minecraft.block.tileentity.TileEntityDispenser var6 = (net.minecraft.block.tileentity.TileEntityDispenser)var1.getBlockTileEntity(var2, var3, var4);

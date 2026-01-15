@@ -37,7 +37,7 @@ public class BlockRedstoneTorch extends BlockTorch {
 		return false;
 	}
 
-	protected BlockRedstoneTorch(int var1, int var2, boolean var3) {
+	public BlockRedstoneTorch(int var1, int var2, boolean var3) {
 		super(var1, var2);
 		this.torchActive = var3;
 		this.setTickOnLoad(true);

@@ -1,7 +1,7 @@
 package net.minecraft.world.chunk;
 
 import net.minecraft.core.save.RegionFileCache;
-import net.minecraft.src.CompressedStreamTools;
+import net.minecraft.core.CompressedStreamTools;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldInfo;

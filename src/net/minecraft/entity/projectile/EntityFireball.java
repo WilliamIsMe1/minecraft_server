@@ -3,7 +3,8 @@ package net.minecraft.entity.projectile;
 import net.minecraft.core.Vec3D;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.living.EntityLiving;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -79,7 +80,7 @@ public class EntityFireball extends net.minecraft.entity.Entity {
 
 		net.minecraft.core.Vec3D var15 = net.minecraft.core.Vec3D.createVector(this.posX, this.posY, this.posZ);
 		net.minecraft.core.Vec3D var2 = net.minecraft.core.Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-		MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var15, var2);
+		net.minecraft.misc.MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var15, var2);
 		var15 = net.minecraft.core.Vec3D.createVector(this.posX, this.posY, this.posZ);
 		var2 = net.minecraft.core.Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 		if(var3 != null) {
@@ -95,7 +96,7 @@ public class EntityFireball extends net.minecraft.entity.Entity {
 			if(var9.canBeCollidedWith() && (var9 != this.owner || this.ticksInAir >= 25)) {
 				float var10 = 0.3F;
 				AxisAlignedBB var11 = var9.boundingBox.expand((double)var10, (double)var10, (double)var10);
-				MovingObjectPosition var12 = var11.func_706_a(var15, var2);
+				net.minecraft.misc.MovingObjectPosition var12 = var11.func_706_a(var15, var2);
 				if(var12 != null) {
 					double var13 = var15.distanceTo(var12.hitVec);
 					if(var13 < var6 || var6 == 0.0D) {
@@ -111,7 +112,7 @@ public class EntityFireball extends net.minecraft.entity.Entity {
 		}
 
 		if(var3 != null) {
-			if(!this.worldObj.singleplayerWorld) {
+			if(this.worldObj.multiplayerWorld) {
 				if(var3.entityHit != null && var3.entityHit.attackEntityFrom(this.owner, 0)) {
 				}
 

@@ -1,14 +1,14 @@
 package net.minecraft.block.natural;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.src.AxisAlignedBB;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
 public class BlockFlower extends Block {
-	protected BlockFlower(int var1, int var2) {
+	public BlockFlower(int var1, int var2) {
 		super(var1, Material.plants);
 		this.blockIndexInTexture = var2;
 		this.setTickOnLoad(true);
@@ -26,14 +26,14 @@ public class BlockFlower extends Block {
 
 	public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
 		super.onNeighborBlockChange(var1, var2, var3, var4, var5);
-		this.func_276_g(var1, var2, var3, var4);
+		this.func_268_h(var1, var2, var3, var4);
 	}
 
 	public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-		this.func_276_g(var1, var2, var3, var4);
+		this.func_268_h(var1, var2, var3, var4);
 	}
 
-	protected final void func_276_g(World var1, int var2, int var3, int var4) {
+	protected final void func_268_h(World var1, int var2, int var3, int var4) {
 		if(!this.canBlockStay(var1, var2, var3, var4)) {
 			this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
 			var1.setBlockWithNotify(var2, var3, var4, 0);
@@ -53,7 +53,12 @@ public class BlockFlower extends Block {
 		return false;
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
+
+	public int getRenderType() {
+		return 1;
+	}
+
 }

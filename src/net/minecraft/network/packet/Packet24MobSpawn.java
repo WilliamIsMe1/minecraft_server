@@ -2,7 +2,7 @@ package net.minecraft.network.packet;
 
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.living.EntityLiving;
-import net.minecraft.src.DataWatcher;
+import net.minecraft.misc.DataWatcher;
 import net.minecraft.util.MathHelper;
 import net.minecraft.network.NetHandler;
 

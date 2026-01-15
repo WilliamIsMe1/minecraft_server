@@ -16,7 +16,7 @@ public class WorldChunkManagerHell extends WorldChunkManager {
 		this.field_4260_g = var4;
 	}
 
-	public BiomeGenBase func_4066_a(ChunkCoordIntPair var1) {
+	public BiomeGenBase getBiomeGenAtChunkCoord(ChunkCoordIntPair var1) {
 		return this.field_4262_e;
 	}
 
@@ -24,9 +24,9 @@ public class WorldChunkManagerHell extends WorldChunkManager {
 		return this.field_4262_e;
 	}
 
-	public BiomeGenBase[] func_4065_a(int var1, int var2, int var3, int var4) {
-		this.field_4256_d = this.loadBlockGeneratorData(this.field_4256_d, var1, var2, var3, var4);
-		return this.field_4256_d;
+	public BiomeGenBase[] func_4069_a(int var1, int var2, int var3, int var4) {
+		this.field_4195_d = this.loadBlockGeneratorData(this.field_4195_d, var1, var2, var3, var4);
+		return this.field_4195_d;
 	}
 
 	public double[] getTemperatures(double[] var1, int var2, int var3, int var4, int var5) {

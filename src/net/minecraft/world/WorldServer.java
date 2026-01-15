@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.block.tileentity.TileEntity;
 import net.minecraft.core.save.ISaveHandler;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.Explosion;
 import net.minecraft.entity.living.creature.mob.EntityWaterMob;
 import net.minecraft.entity.living.creature.animal.EntityAnimal;
 import net.minecraft.entity.living.EntityPlayer;
@@ -15,7 +16,7 @@ import net.minecraft.network.packet.Packet60Explosion;
 import net.minecraft.network.packet.Packet70Bed;
 import net.minecraft.network.packet.Packet71Weather;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.*;
+import net.minecraft.core.MCHash;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.chunk.ChunkProviderServer;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -104,8 +105,8 @@ public class WorldServer extends World {
 		this.mcServer.getEntityTracker(this.worldProvider.worldType).sendPacketToTrackedPlayersAndTrackedEntity(var1, var3);
 	}
 
-	public Explosion newExplosion(Entity var1, double var2, double var4, double var6, float var8, boolean var9) {
-		Explosion var10 = new Explosion(this, var1, var2, var4, var6, var8);
+	public net.minecraft.entity.Explosion newExplosion(Entity var1, double var2, double var4, double var6, float var8, boolean var9) {
+		net.minecraft.entity.Explosion var10 = new Explosion(this, var1, var2, var4, var6, var8);
 		var10.isFlaming = var9;
 		var10.doExplosion();
 		var10.doEffects(false);

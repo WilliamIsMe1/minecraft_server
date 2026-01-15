@@ -6,7 +6,7 @@ import net.minecraft.core.Vec3D;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.living.EntityLiving;
 import net.minecraft.entity.living.EntityPlayer;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -16,7 +16,7 @@ import java.util.Random;
 public class BlockStairs extends net.minecraft.block.core.Block {
 	private net.minecraft.block.core.Block modelBlock;
 
-	protected BlockStairs(int var1, Block var2) {
+	public BlockStairs(int var1, Block var2) {
 		super(var1, var2.blockIndexInTexture, var2.blockMaterial);
 		this.modelBlock = var2;
 		this.setHardness(var2.blockHardness);
@@ -29,7 +29,7 @@ public class BlockStairs extends net.minecraft.block.core.Block {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public net.minecraft.misc.AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
 		return super.getCollisionBoundingBoxFromPool(var1, var2, var3, var4);
 	}
 
@@ -37,7 +37,7 @@ public class BlockStairs extends net.minecraft.block.core.Block {
 		return false;
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 

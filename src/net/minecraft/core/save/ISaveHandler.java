@@ -1,9 +1,9 @@
 package net.minecraft.core.save;
 
 import net.minecraft.world.chunk.IChunkLoader;
-import net.minecraft.src.IPlayerFileData;
+import net.minecraft.server.IPlayerFileData;
 import net.minecraft.world.WorldInfo;
-import net.minecraft.src.WorldProvider;
+import net.minecraft.world.WorldProvider;
 
 import java.io.File;
 import java.util.List;

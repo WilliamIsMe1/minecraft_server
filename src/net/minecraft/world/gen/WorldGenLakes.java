@@ -57,7 +57,7 @@ public class WorldGenLakes extends WorldGenerator {
 					var33 = !var6[(var8 * 16 + var32) * 8 + var10] && (var8 < 15 && var6[((var8 + 1) * 16 + var32) * 8 + var10] || var8 > 0 && var6[((var8 - 1) * 16 + var32) * 8 + var10] || var32 < 15 && var6[(var8 * 16 + var32 + 1) * 8 + var10] || var32 > 0 && var6[(var8 * 16 + (var32 - 1)) * 8 + var10] || var10 < 7 && var6[(var8 * 16 + var32) * 8 + var10 + 1] || var10 > 0 && var6[(var8 * 16 + var32) * 8 + (var10 - 1)]);
 					if(var33) {
 						net.minecraft.block.material.Material var12 = var1.getBlockMaterial(var3 + var8, var4 + var10, var5 + var32);
-						if(var10 >= 4 && var12.getIsLiquid()) {
+						if(var10 >= 4 && var12.isLiquid()) {
 							return false;
 						}
 

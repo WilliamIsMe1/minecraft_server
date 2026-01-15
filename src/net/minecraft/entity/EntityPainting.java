@@ -116,7 +116,7 @@ public class EntityPainting extends net.minecraft.entity.Entity {
 	}
 
 	public void onUpdate() {
-		if(this.field_452_ad++ == 100 && !this.worldObj.singleplayerWorld) {
+		if(this.field_452_ad++ == 100 && this.worldObj.multiplayerWorld) {
 			this.field_452_ad = 0;
 			if(!this.onValidSurface()) {
 				this.setEntityDead();
@@ -186,7 +186,7 @@ public class EntityPainting extends net.minecraft.entity.Entity {
 	}
 
 	public boolean attackEntityFrom(Entity var1, int var2) {
-		if(!this.isDead && !this.worldObj.singleplayerWorld) {
+		if(!this.isDead && this.worldObj.multiplayerWorld) {
 			this.setEntityDead();
 			this.setBeenAttacked();
 			this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(net.minecraft.item.core.Item.painting)));
@@ -227,7 +227,7 @@ public class EntityPainting extends net.minecraft.entity.Entity {
 	}
 
 	public void moveEntity(double var1, double var3, double var5) {
-		if(!this.worldObj.singleplayerWorld && var1 * var1 + var3 * var3 + var5 * var5 > 0.0D) {
+		if(this.worldObj.multiplayerWorld && var1 * var1 + var3 * var3 + var5 * var5 > 0.0D) {
 			this.setEntityDead();
 			this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(net.minecraft.item.core.Item.painting)));
 		}
@@ -235,7 +235,7 @@ public class EntityPainting extends net.minecraft.entity.Entity {
 	}
 
 	public void addVelocity(double var1, double var3, double var5) {
-		if(!this.worldObj.singleplayerWorld && var1 * var1 + var3 * var3 + var5 * var5 > 0.0D) {
+		if(this.worldObj.multiplayerWorld && var1 * var1 + var3 * var3 + var5 * var5 > 0.0D) {
 			this.setEntityDead();
 			this.worldObj.entityJoinedWorld(new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Item.painting)));
 		}

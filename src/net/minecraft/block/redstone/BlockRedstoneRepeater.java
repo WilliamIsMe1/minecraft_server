@@ -16,13 +16,13 @@ public class BlockRedstoneRepeater extends net.minecraft.block.core.Block {
 	private static final int[] field_22013_b = new int[]{1, 2, 3, 4};
 	private final boolean field_22015_c;
 
-	protected BlockRedstoneRepeater(int var1, boolean var2) {
+	public BlockRedstoneRepeater(int var1, boolean var2) {
 		super(var1, 6, Material.circuits);
 		this.field_22015_c = var2;
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 2.0F / 16.0F, 1.0F);
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 

@@ -5,9 +5,9 @@ import net.minecraft.block.core.Block;
 import net.minecraft.block.core.BlockContainer;
 import net.minecraft.block.tileentity.TileEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.src.AxisAlignedBB;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
-import net.minecraft.src.NibbleArray;
+import net.minecraft.misc.NibbleArray;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -232,7 +232,7 @@ public class Chunk {
 			int var9 = this.xPosition * 16 + var1;
 			int var10 = this.zPosition * 16 + var3;
 			this.blocks[var1 << 11 | var3 << 7 | var2] = (byte)(var6 & 255);
-			if(var8 != 0 && !this.worldObj.singleplayerWorld) {
+			if(var8 != 0 && this.worldObj.multiplayerWorld) {
 				Block.blocksList[var8].onBlockRemoval(this.worldObj, var9, var2, var10);
 			}
 
@@ -287,7 +287,7 @@ public class Chunk {
 			this.worldObj.scheduleLightingUpdate(net.minecraft.block.EnumSkyBlock.Sky, var8, var2, var9, var8, var2, var9);
 			this.worldObj.scheduleLightingUpdate(net.minecraft.block.EnumSkyBlock.Block, var8, var2, var9, var8, var2, var9);
 			this.func_333_c(var1, var3);
-			if(var4 != 0 && !this.worldObj.singleplayerWorld) {
+			if(var4 != 0 && this.worldObj.multiplayerWorld) {
 				Block.blocksList[var4].onBlockAdded(this.worldObj, var8, var2, var9);
 			}
 

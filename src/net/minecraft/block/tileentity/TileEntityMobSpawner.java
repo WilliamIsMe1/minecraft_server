@@ -1,6 +1,6 @@
 package net.minecraft.block.tileentity;
 
-import net.minecraft.src.AxisAlignedBB;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.living.EntityLiving;
 import net.minecraft.util.nbt.NBTTagCompound;
@@ -36,7 +36,7 @@ public class TileEntityMobSpawner extends TileEntity {
 				this.yaw -= 360.0D;
 			}
 
-			if(!this.worldObj.singleplayerWorld) {
+			if(this.worldObj.multiplayerWorld) {
 				if(this.delay == -1) {
 					this.updateDelay();
 				}

@@ -4,7 +4,7 @@ import net.minecraft.block.core.Block;
 import net.minecraft.block.natural.BlockSand;
 import net.minecraft.map.MapGenBase;
 import net.minecraft.map.MapGenCavesHell;
-import net.minecraft.src.IProgressUpdate;
+import net.minecraft.misc.IProgressUpdate;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.WorldGenFire;
@@ -90,7 +90,7 @@ public class ChunkProviderHell implements IChunkProvider {
 								}
 
 								if(var46 > 0.0D) {
-									var51 = Block.bloodStone.blockID;
+									var51 = Block.netherrack.blockID;
 								}
 
 								var3[var42] = (byte)var51;
@@ -126,8 +126,8 @@ public class ChunkProviderHell implements IChunkProvider {
 				boolean var10 = this.field_4232_q[var7 + var8 * 16] + this.hellRNG.nextDouble() * 0.2D > 0.0D;
 				int var11 = (int)(this.field_4231_r[var7 + var8 * 16] / 3.0D + 3.0D + this.hellRNG.nextDouble() * 0.25D);
 				int var12 = -1;
-				byte var13 = (byte) Block.bloodStone.blockID;
-				byte var14 = (byte) Block.bloodStone.blockID;
+				byte var13 = (byte) Block.netherrack.blockID;
+				byte var14 = (byte) Block.netherrack.blockID;
 
 				for(int var15 = 127; var15 >= 0; --var15) {
 					int var16 = (var8 * 16 + var7) * 128 + var15;
@@ -139,20 +139,20 @@ public class ChunkProviderHell implements IChunkProvider {
 						byte var17 = var3[var16];
 						if(var17 == 0) {
 							var12 = -1;
-						} else if(var17 == Block.bloodStone.blockID) {
+						} else if(var17 == Block.netherrack.blockID) {
 							if(var12 == -1) {
 								if(var11 <= 0) {
 									var13 = 0;
-									var14 = (byte) Block.bloodStone.blockID;
+									var14 = (byte) Block.netherrack.blockID;
 								} else if(var15 >= var4 - 4 && var15 <= var4 + 1) {
-									var13 = (byte) Block.bloodStone.blockID;
-									var14 = (byte) Block.bloodStone.blockID;
+									var13 = (byte) Block.netherrack.blockID;
+									var14 = (byte) Block.netherrack.blockID;
 									if(var10) {
 										var13 = (byte) Block.gravel.blockID;
 									}
 
 									if(var10) {
-										var14 = (byte) Block.bloodStone.blockID;
+										var14 = (byte) Block.netherrack.blockID;
 									}
 
 									if(var9) {

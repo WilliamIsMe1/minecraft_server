@@ -2,6 +2,7 @@ package net.minecraft.block.natural;
 
 import net.minecraft.block.core.Block;
 import net.minecraft.block.core.BlockBreakable;
+import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.block.EnumSkyBlock;
 import net.minecraft.block.material.Material;
@@ -16,10 +17,18 @@ public class BlockIce extends BlockBreakable {
 		this.setTickOnLoad(true);
 	}
 
+	public int getRenderBlockPass() {
+		return 1;
+	}
+
+	public boolean shouldSideBeRendered(IBlockAccess var1, int var2, int var3, int var4, int var5) {
+		return super.shouldSideBeRendered(var1, var2, var3, var4, 1 - var5);
+	}
+
 	public void harvestBlock(World var1, EntityPlayer var2, int var3, int var4, int var5, int var6) {
 		super.harvestBlock(var1, var2, var3, var4, var5, var6);
 		Material var7 = var1.getBlockMaterial(var3, var4 - 1, var5);
-		if(var7.getIsSolid() || var7.getIsLiquid()) {
+		if(var7.getIsSolid() || var7.isLiquid()) {
 			var1.setBlockWithNotify(var3, var4, var5, Block.waterMoving.blockID);
 		}
 

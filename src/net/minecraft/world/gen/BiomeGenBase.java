@@ -12,7 +12,7 @@ import net.minecraft.entity.living.creature.mob.EntitySlime;
 import net.minecraft.entity.living.creature.mob.EntitySpider;
 import net.minecraft.entity.living.creature.animal.EntitySquid;
 import net.minecraft.entity.living.creature.mob.EntityZombie;
-import net.minecraft.src.SpawnListEntry;
+import net.minecraft.entity.SpawnListEntry;
 
 import java.util.ArrayList;
 import java.util.List;

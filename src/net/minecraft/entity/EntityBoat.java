@@ -4,7 +4,7 @@ import net.minecraft.block.core.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.core.Item;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -39,11 +39,11 @@ public class EntityBoat extends net.minecraft.entity.Entity {
 	protected void entityInit() {
 	}
 
-	public AxisAlignedBB func_89_d(net.minecraft.entity.Entity var1) {
+	public net.minecraft.misc.AxisAlignedBB func_89_d(net.minecraft.entity.Entity var1) {
 		return var1.boundingBox;
 	}
 
-	public AxisAlignedBB getBoundingBox() {
+	public net.minecraft.misc.AxisAlignedBB getBoundingBox() {
 		return this.boundingBox;
 	}
 
@@ -67,7 +67,7 @@ public class EntityBoat extends net.minecraft.entity.Entity {
 	}
 
 	public boolean attackEntityFrom(net.minecraft.entity.Entity var1, int var2) {
-		if(!this.worldObj.singleplayerWorld && !this.isDead) {
+		if(this.worldObj.multiplayerWorld && !this.isDead) {
 			this.forwardDirection = -this.forwardDirection;
 			this.field_9177_b = 10;
 			this.damageTaken += var2 * 10;
@@ -118,7 +118,7 @@ public class EntityBoat extends net.minecraft.entity.Entity {
 		for(int var4 = 0; var4 < var1; ++var4) {
 			double var5 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double)(var4 + 0) / (double)var1 - 0.125D;
 			double var7 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double)(var4 + 1) / (double)var1 - 0.125D;
-			AxisAlignedBB var9 = AxisAlignedBB.getBoundingBoxFromPool(this.boundingBox.minX, var5, this.boundingBox.minZ, this.boundingBox.maxX, var7, this.boundingBox.maxZ);
+			net.minecraft.misc.AxisAlignedBB var9 = AxisAlignedBB.getBoundingBoxFromPool(this.boundingBox.minX, var5, this.boundingBox.minZ, this.boundingBox.maxX, var7, this.boundingBox.maxZ);
 			if(this.worldObj.isAABBInMaterial(var9, Material.water)) {
 				var2 += 1.0D / (double)var1;
 			}
@@ -128,7 +128,7 @@ public class EntityBoat extends net.minecraft.entity.Entity {
 		double var8;
 		double var10;
 		double var21;
-		if(this.worldObj.singleplayerWorld) {
+		if(!this.worldObj.multiplayerWorld) {
 			if(this.field_9176_d > 0) {
 				var21 = this.posX + (this.field_9174_e - this.posX) / (double)this.field_9176_d;
 				var6 = this.posY + (this.field_9172_f - this.posY) / (double)this.field_9176_d;
@@ -226,7 +226,7 @@ public class EntityBoat extends net.minecraft.entity.Entity {
 			}
 
 			if(this.isCollidedHorizontally && var6 > 0.15D) {
-				if(!this.worldObj.singleplayerWorld) {
+				if(this.worldObj.multiplayerWorld) {
 					this.setEntityDead();
 
 					int var22;
@@ -315,7 +315,7 @@ public class EntityBoat extends net.minecraft.entity.Entity {
 		if(this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer && this.riddenByEntity != var1) {
 			return true;
 		} else {
-			if(!this.worldObj.singleplayerWorld) {
+			if(this.worldObj.multiplayerWorld) {
 				var1.mountEntity(this);
 			}
 

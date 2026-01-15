@@ -14,7 +14,7 @@ import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.MCHash;
+import net.minecraft.core.MCHash;
 import net.minecraft.network.packet.Packet;
 
 public class EntityTracker {

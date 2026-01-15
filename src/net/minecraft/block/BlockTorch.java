@@ -3,13 +3,14 @@ package net.minecraft.block;
 import net.minecraft.block.core.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.core.Vec3D;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
 public class BlockTorch extends net.minecraft.block.core.Block {
-	protected BlockTorch(int var1, int var2) {
+	public BlockTorch(int var1, int var2) {
 		super(var1, var2, Material.circuits);
 		this.setTickOnLoad(true);
 	}
@@ -22,7 +23,7 @@ public class BlockTorch extends net.minecraft.block.core.Block {
 		return false;
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
@@ -125,8 +126,8 @@ public class BlockTorch extends net.minecraft.block.core.Block {
 		}
 	}
 
-	public MovingObjectPosition collisionRayTrace(World var1, int var2, int var3, int var4, net.minecraft.core.Vec3D var5, Vec3D var6) {
-		int var7 = var1.getBlockMetadata(var2, var3, var4) & 7;
+	public MovingObjectPosition collisionRayTrace(World world, int var2, int var3, int var4, net.minecraft.core.Vec3D var5, Vec3D var6) {
+		int var7 = world.getBlockMetadata(var2, var3, var4) & 7;
 		float var8 = 0.15F;
 		if(var7 == 1) {
 			this.setBlockBounds(0.0F, 0.2F, 0.5F - var8, var8 * 2.0F, 0.8F, 0.5F + var8);
@@ -141,6 +142,6 @@ public class BlockTorch extends net.minecraft.block.core.Block {
 			this.setBlockBounds(0.5F - var8, 0.0F, 0.5F - var8, 0.5F + var8, 0.6F, 0.5F + var8);
 		}
 
-		return super.collisionRayTrace(var1, var2, var3, var4, var5, var6);
+		return super.collisionRayTrace(world, var2, var3, var4, var5, var6);
 	}
 }

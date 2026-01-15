@@ -32,7 +32,7 @@ public class BlockNote extends BlockContainer {
 	}
 
 	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.entity.living.EntityPlayer var5) {
-		if(var1.singleplayerWorld) {
+		if(!var1.multiplayerWorld) {
 			return true;
 		} else {
 			net.minecraft.block.tileentity.TileEntityNote var6 = (net.minecraft.block.tileentity.TileEntityNote)var1.getBlockTileEntity(var2, var3, var4);
@@ -43,7 +43,7 @@ public class BlockNote extends BlockContainer {
 	}
 
 	public void onBlockClicked(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			net.minecraft.block.tileentity.TileEntityNote var6 = (net.minecraft.block.tileentity.TileEntityNote)var1.getBlockTileEntity(var2, var3, var4);
 			var6.triggerNote(var1, var2, var3, var4);
 		}

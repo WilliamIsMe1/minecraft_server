@@ -1,7 +1,7 @@
 package net.minecraft.entity;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.src.AxisAlignedBB;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;

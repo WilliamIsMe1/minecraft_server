@@ -1,5 +1,6 @@
 package net.minecraft.achievement;
 
+import net.minecraft.achievement.stats.IStatStringFormat;
 import net.minecraft.achievement.stats.StatBase;
 import net.minecraft.achievement.stats.StatCollector;
 import net.minecraft.block.core.Block;
@@ -7,12 +8,13 @@ import net.minecraft.item.core.Item;
 import net.minecraft.item.core.ItemStack;
 
 public class Achievement extends StatBase {
-	public final int field_25067_a;
-	public final int field_27991_b;
-	public final Achievement field_27992_c;
-	private final String field_27063_l;
+	public final int displayColumn;
+	public final int displayRow;
+	public final Achievement parentAchievement;
+	private final String achievementDescription;
+	private IStatStringFormat statStringFormatter;
 	public final ItemStack theItemStack;
-	private boolean field_27062_m;
+	private boolean isSpecial;
 
 	public Achievement(int var1, String var2, int var3, int var4, Item var5, Achievement var6) {
 		this(var1, var2, var3, var4, new ItemStack(var5), var6);
@@ -25,49 +27,66 @@ public class Achievement extends StatBase {
 	public Achievement(int var1, String var2, int var3, int var4, ItemStack var5, Achievement var6) {
 		super(5242880 + var1, StatCollector.translateToLocal("achievement." + var2));
 		this.theItemStack = var5;
-		this.field_27063_l = StatCollector.translateToLocal("achievement." + var2 + ".desc");
-		this.field_25067_a = var3;
-		this.field_27991_b = var4;
-		if(var3 < AchievementList.field_27114_a) {
-			AchievementList.field_27114_a = var3;
+		this.achievementDescription = StatCollector.translateToLocal("achievement." + var2 + ".desc");
+		this.displayColumn = var3;
+		this.displayRow = var4;
+		if(var3 < AchievementList.minDisplayColumn) {
+			AchievementList.minDisplayColumn = var3;
 		}
 
-		if(var4 < AchievementList.field_27113_b) {
-			AchievementList.field_27113_b = var4;
+		if(var4 < AchievementList.minDisplayRow) {
+			AchievementList.minDisplayRow = var4;
 		}
 
-		if(var3 > AchievementList.field_27112_c) {
-			AchievementList.field_27112_c = var3;
+		if(var3 > AchievementList.maxDisplayColumn) {
+			AchievementList.maxDisplayColumn = var3;
 		}
 
-		if(var4 > AchievementList.field_27111_d) {
-			AchievementList.field_27111_d = var4;
+		if(var4 > AchievementList.maxDisplayRow) {
+			AchievementList.maxDisplayRow = var4;
 		}
 
-		this.field_27992_c = var6;
+		this.parentAchievement = var6;
 	}
 
-	public Achievement func_27059_a() {
-		this.field_27058_g = true;
+	public Achievement func_27089_a() {
+		this.field_27088_g = true;
 		return this;
 	}
 
-	public Achievement func_27060_b() {
-		this.field_27062_m = true;
+	public Achievement setSpecial() {
+		this.isSpecial = true;
 		return this;
 	}
 
-	public Achievement func_27061_c() {
-		super.func_27053_d();
-		AchievementList.field_25129_a.add(this);
+	public Achievement registerAchievement() {
+		super.registerStat();
+		AchievementList.achievementList.add(this);
 		return this;
 	}
 
-	public StatBase func_27053_d() {
-		return this.func_27061_c();
+	public boolean func_25067_a() {
+		return true;
 	}
 
-	public StatBase func_27052_e() {
-		return this.func_27059_a();
+	public String getDescription() {
+		return this.statStringFormatter != null ? this.statStringFormatter.formatString(this.achievementDescription) : this.achievementDescription;
+	}
+
+	public Achievement setStatStringFormatter(IStatStringFormat var1) {
+		this.statStringFormatter = var1;
+		return this;
+	}
+
+	public boolean getSpecial() {
+		return this.isSpecial;
+	}
+
+	public StatBase registerStat() {
+		return this.registerAchievement();
+	}
+
+	public StatBase func_27082_h() {
+		return this.func_27089_a();
 	}
 }

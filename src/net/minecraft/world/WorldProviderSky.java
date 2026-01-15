@@ -3,7 +3,6 @@ package net.minecraft.world;
 import net.minecraft.block.core.Block;
 import net.minecraft.world.gen.BiomeGenBase;
 import net.minecraft.world.chunk.ChunkProviderSky;
-import net.minecraft.src.WorldProvider;
 import net.minecraft.world.chunk.IChunkProvider;
 
 public class WorldProviderSky extends WorldProvider {

@@ -3,10 +3,11 @@ package net.minecraft.block;
 import net.minecraft.block.core.Block;
 import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.render.block.model.ModelBed;
+import net.minecraft.core.EnumStatus;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.core.Item;
-import net.minecraft.src.*;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkCoordinates;
 
@@ -22,7 +23,7 @@ public class BlockBed extends net.minecraft.block.core.Block {
 	}
 
 	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.entity.living.EntityPlayer var5) {
-		if(var1.singleplayerWorld) {
+		if(!var1.multiplayerWorld) {
 			return true;
 		} else {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);
@@ -77,8 +78,8 @@ public class BlockBed extends net.minecraft.block.core.Block {
 					func_22022_a(var1, var2, var3, var4, false);
 				}
 
-				EnumStatus var15 = var5.goToSleep(var2, var3, var4);
-				if(var15 == EnumStatus.OK) {
+				net.minecraft.core.EnumStatus var15 = var5.goToSleep(var2, var3, var4);
+				if(var15 == net.minecraft.core.EnumStatus.OK) {
 					func_22022_a(var1, var2, var3, var4, true);
 					return true;
 				} else {
@@ -102,7 +103,7 @@ public class BlockBed extends net.minecraft.block.core.Block {
 		}
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
@@ -123,7 +124,7 @@ public class BlockBed extends net.minecraft.block.core.Block {
 			}
 		} else if(var1.getBlockId(var2 + field_22023_a[var7][0], var3, var4 + field_22023_a[var7][1]) != this.blockID) {
 			var1.setBlockWithNotify(var2, var3, var4, 0);
-			if(!var1.singleplayerWorld) {
+			if(var1.multiplayerWorld) {
 				this.dropBlockAsItem(var1, var2, var3, var4, var6);
 			}
 		}

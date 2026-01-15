@@ -10,7 +10,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.core.ItemStack;
 import net.minecraft.item.core.Item;
 import net.minecraft.item.food.ItemFood;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -107,7 +107,7 @@ public class EntityWolf extends EntityAnimal {
 				this.setIsSitting(true);
 			}
 		} else if(this.playerToAttack == null && !this.getGotPath() && !this.func_25030_y() && this.worldObj.rand.nextInt(100) == 0) {
-			List var1 = this.worldObj.getEntitiesWithinAABB(EntitySheep.class, AxisAlignedBB.getBoundingBoxFromPool(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
+			List var1 = this.worldObj.getEntitiesWithinAABB(EntitySheep.class, net.minecraft.misc.AxisAlignedBB.getBoundingBoxFromPool(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
 			if(!var1.isEmpty()) {
 				this.setEntityToAttack((net.minecraft.entity.Entity)var1.get(this.worldObj.rand.nextInt(var1.size())));
 			}
@@ -117,7 +117,7 @@ public class EntityWolf extends EntityAnimal {
 			this.setIsSitting(false);
 		}
 
-		if(!this.worldObj.singleplayerWorld) {
+		if(this.worldObj.multiplayerWorld) {
 			this.dataWatcher.updateObject(18, Integer.valueOf(this.health));
 		}
 
@@ -310,7 +310,7 @@ public class EntityWolf extends EntityAnimal {
 					var1.inventory.setInventorySlotContents(var1.inventory.currentItem, (ItemStack)null);
 				}
 
-				if(!this.worldObj.singleplayerWorld) {
+				if(this.worldObj.multiplayerWorld) {
 					if(this.rand.nextInt(3) == 0) {
 						this.setIsTamed(true);
 						this.setPathToEntity((net.minecraft.entity.pathfinding.PathEntity)null);
@@ -342,7 +342,7 @@ public class EntityWolf extends EntityAnimal {
 			}
 
 			if(var1.username.equalsIgnoreCase(this.getOwner())) {
-				if(!this.worldObj.singleplayerWorld) {
+				if(this.worldObj.multiplayerWorld) {
 					this.setIsSitting(!this.getIsSitting());
 					this.isJumping = false;
 					this.setPathToEntity((PathEntity)null);

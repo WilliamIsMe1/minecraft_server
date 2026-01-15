@@ -64,10 +64,10 @@ public class EntityFallingSand extends Entity {
 				this.motionZ *= (double)0.7F;
 				this.motionY *= -0.5D;
 				this.setEntityDead();
-				if((!this.worldObj.canBlockBePlacedAt(this.blockID, var1, var2, var3, true, 1) || BlockSand.canFallBelow(this.worldObj, var1, var2 - 1, var3) || !this.worldObj.setBlockWithNotify(var1, var2, var3, this.blockID)) && !this.worldObj.singleplayerWorld) {
+				if((!this.worldObj.canBlockBePlacedAt(this.blockID, var1, var2, var3, true, 1) || BlockSand.canFallBelow(this.worldObj, var1, var2 - 1, var3) || !this.worldObj.setBlockWithNotify(var1, var2, var3, this.blockID)) && this.worldObj.multiplayerWorld) {
 					this.dropItem(this.blockID, 1);
 				}
-			} else if(this.fallTime > 100 && !this.worldObj.singleplayerWorld) {
+			} else if(this.fallTime > 100 && this.worldObj.multiplayerWorld) {
 				this.dropItem(this.blockID, 1);
 				this.setEntityDead();
 			}

@@ -3,7 +3,7 @@ package net.minecraft.block.redstone;
 import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityMinecart;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -23,20 +23,20 @@ public class BlockDetectorRail extends BlockRail {
 		return true;
 	}
 
-	public void onEntityCollidedWithBlock(net.minecraft.world.World var1, int var2, int var3, int var4, Entity var5) {
-		if(!var1.singleplayerWorld) {
+	public void onEntityCollidedWithBlock(World var1, int var2, int var3, int var4, Entity var5) {
+		if(var1.multiplayerWorld) {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);
 			if((var6 & 8) == 0) {
-				this.func_27035_f(var1, var2, var3, var4, var6);
+				this.setStateIfMinecartInteractsWithRail(var1, var2, var3, var4, var6);
 			}
 		}
 	}
 
-	public void updateTick(net.minecraft.world.World var1, int var2, int var3, int var4, Random var5) {
-		if(!var1.singleplayerWorld) {
+	public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
+		if(var1.multiplayerWorld) {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);
 			if((var6 & 8) != 0) {
-				this.func_27035_f(var1, var2, var3, var4, var6);
+				this.setStateIfMinecartInteractsWithRail(var1, var2, var3, var4, var6);
 			}
 		}
 	}
@@ -45,16 +45,16 @@ public class BlockDetectorRail extends BlockRail {
 		return (var1.getBlockMetadata(var2, var3, var4) & 8) != 0;
 	}
 
-	public boolean isIndirectlyPoweringTo(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
-		return (var1.getBlockMetadata(var2, var3, var4) & 8) == 0 ? false : var5 == 1;
+	public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {
+		return (var1.getBlockMetadata(var2, var3, var4) & 8) != 0 && var5 == 1;
 	}
 
-	private void func_27035_f(World var1, int var2, int var3, int var4, int var5) {
+	private void setStateIfMinecartInteractsWithRail(World var1, int var2, int var3, int var4, int var5) {
 		boolean var6 = (var5 & 8) != 0;
 		boolean var7 = false;
 		float var8 = 2.0F / 16.0F;
-		List var9 = var1.getEntitiesWithinAABB(EntityMinecart.class, AxisAlignedBB.getBoundingBoxFromPool((double)((float)var2 + var8), (double)var3, (double)((float)var4 + var8), (double)((float)(var2 + 1) - var8), (double)var3 + 0.25D, (double)((float)(var4 + 1) - var8)));
-		if(var9.size() > 0) {
+		List<Entity> var9 = var1.getEntitiesWithinAABB(EntityMinecart.class, AxisAlignedBB.getBoundingBoxFromPool((float)var2 + var8, var3, (float)var4 + var8, (float)(var2 + 1) - var8, (double)var3 + 0.25D, (float)(var4 + 1) - var8));
+		if(!var9.isEmpty()) {
 			var7 = true;
 		}
 

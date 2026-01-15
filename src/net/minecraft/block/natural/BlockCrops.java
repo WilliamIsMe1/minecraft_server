@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class BlockCrops extends BlockFlower {
-	protected BlockCrops(int var1, int var2) {
+	public BlockCrops(int var1, int var2) {
 		super(var1, var2);
 		this.blockIndexInTexture = var2;
 		this.setTickOnLoad(true);
@@ -40,44 +40,44 @@ public class BlockCrops extends BlockFlower {
 		var1.setBlockMetadataWithNotify(var2, var3, var4, 7);
 	}
 
-	private float getGrowthRate(World var1, int var2, int var3, int var4) {
-		float var5 = 1.0F;
-		int var6 = var1.getBlockId(var2, var3, var4 - 1);
-		int var7 = var1.getBlockId(var2, var3, var4 + 1);
-		int var8 = var1.getBlockId(var2 - 1, var3, var4);
-		int var9 = var1.getBlockId(var2 + 1, var3, var4);
-		int var10 = var1.getBlockId(var2 - 1, var3, var4 - 1);
-		int var11 = var1.getBlockId(var2 + 1, var3, var4 - 1);
-		int var12 = var1.getBlockId(var2 + 1, var3, var4 + 1);
-		int var13 = var1.getBlockId(var2 - 1, var3, var4 + 1);
-		boolean var14 = var8 == this.blockID || var9 == this.blockID;
-		boolean var15 = var6 == this.blockID || var7 == this.blockID;
-		boolean var16 = var10 == this.blockID || var11 == this.blockID || var12 == this.blockID || var13 == this.blockID;
+	private float getGrowthRate(World var1, int x, int y, int z) {
+		float growthRate = 1.0F;
+		int northBlock = var1.getBlockId(x, y, z - 1);
+		int southBlock = var1.getBlockId(x, y, z + 1);
+		int westBlock = var1.getBlockId(x - 1, y, z);
+		int eastBlock = var1.getBlockId(x + 1, y, z);
+		int northWestBlock = var1.getBlockId(x - 1, y, z - 1);
+		int northEastBlock = var1.getBlockId(x + 1, y, z - 1);
+		int southEastBlock = var1.getBlockId(x + 1, y, z + 1);
+		int southWestBlock = var1.getBlockId(x - 1, y, z + 1);
+		boolean areAnyEastWestCropsEqual = westBlock == this.blockID || eastBlock == this.blockID;
+		boolean areAnyNorthSouthCropsEqual = northBlock == this.blockID || southBlock == this.blockID;
+		boolean areAnyDiagonalCropsEqual = northWestBlock == this.blockID || northEastBlock == this.blockID || southEastBlock == this.blockID || southWestBlock == this.blockID;
 
-		for(int var17 = var2 - 1; var17 <= var2 + 1; ++var17) {
-			for(int var18 = var4 - 1; var18 <= var4 + 1; ++var18) {
-				int var19 = var1.getBlockId(var17, var3 - 1, var18);
-				float var20 = 0.0F;
-				if(var19 == Block.tilledField.blockID) {
-					var20 = 1.0F;
-					if(var1.getBlockMetadata(var17, var3 - 1, var18) > 0) {
-						var20 = 3.0F;
+		for(int currentX = x - 1; currentX <= x + 1; ++currentX) {
+			for(int currentZ = z - 1; currentZ <= z + 1; ++currentZ) {
+				int checkedBlockId = var1.getBlockId(currentX, y - 1, currentZ);
+				float checkedBlockModifier = 0.0F;
+				if(checkedBlockId == Block.tilledField.blockID) {
+					checkedBlockModifier = 1.0F;
+					if(var1.getBlockMetadata(currentX, y - 1, currentZ) > 0) {
+						checkedBlockModifier = 3.0F;
 					}
 				}
 
-				if(var17 != var2 || var18 != var4) {
-					var20 /= 4.0F;
+				if(currentX != x || currentZ != z) {
+					checkedBlockModifier /= 4.0F;
 				}
 
-				var5 += var20;
+				growthRate += checkedBlockModifier;
 			}
 		}
 
-		if(var16 || var14 && var15) {
-			var5 /= 2.0F;
+		if(areAnyDiagonalCropsEqual || areAnyEastWestCropsEqual && areAnyNorthSouthCropsEqual) {
+			growthRate /= 2.0F;
 		}
 
-		return var5;
+		return growthRate;
 	}
 
 	public int getBlockTextureFromSideAndMetadata(int var1, int var2) {
@@ -88,9 +88,13 @@ public class BlockCrops extends BlockFlower {
 		return this.blockIndexInTexture + var2;
 	}
 
+	public int getRenderType() {
+		return 6;
+	}
+
 	public void dropBlockAsItemWithChance(World var1, int var2, int var3, int var4, int var5, float var6) {
 		super.dropBlockAsItemWithChance(var1, var2, var3, var4, var5, var6);
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			for(int var7 = 0; var7 < 3; ++var7) {
 				if(var1.rand.nextInt(15) <= var5) {
 					float var8 = 0.7F;

@@ -1,7 +1,7 @@
 package net.minecraft.block.natural;
 
 import net.minecraft.block.core.Block;
-import net.minecraft.src.AxisAlignedBB;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.item.core.Item;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class BlockReed extends Block {
-	protected BlockReed(int var1, int var2) {
+	public BlockReed(int var1, int var2) {
 		super(var1, Material.plants);
 		this.blockIndexInTexture = var2;
 		float var3 = 6.0F / 16.0F;
@@ -38,7 +38,11 @@ public class BlockReed extends Block {
 
 	public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
 		int var5 = var1.getBlockId(var2, var3 - 1, var4);
-		return var5 == this.blockID ? true : (var5 != Block.grass.blockID && var5 != Block.dirt.blockID ? false : (var1.getBlockMaterial(var2 - 1, var3 - 1, var4) == Material.water ? true : (var1.getBlockMaterial(var2 + 1, var3 - 1, var4) == Material.water ? true : (var1.getBlockMaterial(var2, var3 - 1, var4 - 1) == Material.water ? true : var1.getBlockMaterial(var2, var3 - 1, var4 + 1) == Material.water))));
+		if (var5 == blockID) {
+			return true;
+		} else {
+			return ((var5 == Block.grass.blockID || var5 == Block.dirt.blockID) && (var1.getBlockMaterial(var2 - 1, var3 - 1, var4) == Material.water || (var1.getBlockMaterial(var2 + 1, var3 - 1, var4) == Material.water || (var1.getBlockMaterial(var2, var3 - 1, var4 - 1) == Material.water || var1.getBlockMaterial(var2, var3 - 1, var4 + 1) == Material.water))));
+		}
 	}
 
 	public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
@@ -69,7 +73,12 @@ public class BlockReed extends Block {
 		return false;
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
+
+	public int getRenderType() {
+		return 1;
+	}
+
 }

@@ -7,11 +7,13 @@ import java.util.logging.Logger;
 
 import net.minecraft.block.tileentity.TileEntity;
 import net.minecraft.block.tileentity.TileEntitySign;
+import net.minecraft.core.ChatAllowedCharacters;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.living.EntityPlayerMP;
 import net.minecraft.item.container.inventory.InventoryPlayer;
 import net.minecraft.item.container.inventory.Slot;
 import net.minecraft.item.core.ItemStack;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet0KeepAlive;
 import net.minecraft.network.packet.Packet101CloseWindow;
@@ -32,8 +34,8 @@ import net.minecraft.network.packet.Packet3Chat;
 import net.minecraft.network.packet.Packet53BlockChange;
 import net.minecraft.network.packet.Packet7UseEntity;
 import net.minecraft.network.packet.Packet9Respawn;
+import net.minecraft.server.ICommandListener;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.*;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.ChunkCoordinates;
@@ -420,7 +422,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 			var2 = var2.trim();
 
 			for(int var3 = 0; var3 < var2.length(); ++var3) {
-				if(ChatAllowedCharacters.allowedCharacters.indexOf(var2.charAt(var3)) < 0) {
+				if(net.minecraft.core.ChatAllowedCharacters.allowedCharacters.indexOf(var2.charAt(var3)) < 0) {
 					this.kickPlayer("Illegal characters in chat");
 					return;
 				}

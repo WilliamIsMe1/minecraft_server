@@ -6,9 +6,9 @@ import net.minecraft.entity.living.creature.animal.EntityCow;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.core.Item;
 import net.minecraft.item.core.ItemStack;
-import net.minecraft.src.EnumMovingObjectType;
+import net.minecraft.misc.EnumMovingObjectType;
 import net.minecraft.util.MathHelper;
-import net.minecraft.src.MovingObjectPosition;
+import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.core.Vec3D;
 import net.minecraft.world.World;
 

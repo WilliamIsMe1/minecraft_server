@@ -21,7 +21,7 @@ public class ItemHoe extends Item {
 		} else {
 			Block var10 = Block.tilledField;
 			var3.playSoundEffect((double)((float)var4 + 0.5F), (double)((float)var5 + 0.5F), (double)((float)var6 + 0.5F), var10.stepSound.func_737_c(), (var10.stepSound.getVolume() + 1.0F) / 2.0F, var10.stepSound.getPitch() * 0.8F);
-			if(var3.singleplayerWorld) {
+			if(!var3.multiplayerWorld) {
 				return true;
 			} else {
 				var3.setBlockWithNotify(var4, var5, var6, var10.blockID);

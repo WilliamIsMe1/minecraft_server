@@ -51,7 +51,7 @@ public class ContainerWorkbench extends Container {
 
 	public void onCraftGuiClosed(net.minecraft.entity.living.EntityPlayer var1) {
 		super.onCraftGuiClosed(var1);
-		if(!this.field_20150_c.singleplayerWorld) {
+		if(this.field_20150_c.multiplayerWorld) {
 			for(int var2 = 0; var2 < 9; ++var2) {
 				ItemStack var3 = this.craftMatrix.getStackInSlot(var2);
 				if(var3 != null) {

@@ -9,6 +9,8 @@ import net.minecraft.achievement.stats.StatBase;
 import net.minecraft.block.tileentity.TileEntity;
 import net.minecraft.block.tileentity.TileEntityDispenser;
 import net.minecraft.block.tileentity.TileEntityFurnace;
+import net.minecraft.core.EnumStatus;
+import net.minecraft.core.StringTranslate;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.container.inventory.SlotCrafting;
@@ -23,7 +25,6 @@ import net.minecraft.network.NetServerHandler;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet200Statistic;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.*;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.ChunkCoordIntPair;
 
@@ -33,11 +34,11 @@ public class EntityPlayerMP extends net.minecraft.entity.living.EntityPlayer imp
 	public net.minecraft.item.ItemInWorldManager itemInWorldManager;
 	public double field_9155_d;
 	public double field_9154_e;
-	public List loadedChunks = new LinkedList();
-	public Set field_420_ah = new HashSet();
+	public List<ChunkCoordIntPair> loadedChunks = new LinkedList<>();
+	public Set<ChunkCoordIntPair> field_420_ah = new HashSet<>();
 	private int lastHealth = -99999999;
 	private int ticksOfInvuln = 60;
-	private ItemStack[] playerInventory = new ItemStack[]{null, null, null, null, null};
+	private final ItemStack[] playerInventory = new ItemStack[]{null, null, null, null, null};
 	private int currentWindowId = 0;
 	public boolean isChangingQuantityOnly;
 
@@ -253,8 +254,8 @@ public class EntityPlayerMP extends net.minecraft.entity.living.EntityPlayer imp
 	public void func_22068_s() {
 	}
 
-	public EnumStatus goToSleep(int var1, int var2, int var3) {
-		EnumStatus var4 = super.goToSleep(var1, var2, var3);
+	public net.minecraft.core.EnumStatus goToSleep(int var1, int var2, int var3) {
+		net.minecraft.core.EnumStatus var4 = super.goToSleep(var1, var2, var3);
 		if(var4 == EnumStatus.OK) {
 			net.minecraft.entity.EntityTracker var5 = this.mcServer.getEntityTracker(this.dimension);
 			net.minecraft.network.packet.Packet17Sleep var6 = new net.minecraft.network.packet.Packet17Sleep(this, 0, var1, var2, var3);
@@ -379,7 +380,7 @@ public class EntityPlayerMP extends net.minecraft.entity.living.EntityPlayer imp
 
 	public void addStat(StatBase var1, int var2) {
 		if(var1 != null) {
-			if(!var1.field_27058_g) {
+			if(!var1.field_27088_g) {
 				while(var2 > 100) {
 					this.playerNetServerHandler.sendPacket(new net.minecraft.network.packet.Packet200Statistic(var1.statId, 100));
 					var2 -= 100;
@@ -411,7 +412,7 @@ public class EntityPlayerMP extends net.minecraft.entity.living.EntityPlayer imp
 	}
 
 	public void func_22061_a(String var1) {
-		StringTranslate var2 = StringTranslate.getInstance();
+		net.minecraft.core.StringTranslate var2 = StringTranslate.getInstance();
 		String var3 = var2.translateKey(var1);
 		this.playerNetServerHandler.sendPacket(new net.minecraft.network.packet.Packet3Chat(var3));
 	}

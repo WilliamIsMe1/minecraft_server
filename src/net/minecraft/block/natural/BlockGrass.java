@@ -1,20 +1,40 @@
 package net.minecraft.block.natural;
 
 import net.minecraft.block.core.Block;
+import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.render.ColorizerGrass;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
 public class BlockGrass extends Block {
-	protected BlockGrass(int var1) {
+	public BlockGrass(int var1) {
 		super(var1, Material.grass);
 		this.blockIndexInTexture = 3;
 		this.setTickOnLoad(true);
 	}
 
+	public int getBlockTexture(IBlockAccess var1, int var2, int var3, int var4, int var5) {
+		if(var5 == 1) {
+			return 0;
+		} else if(var5 == 0) {
+			return 2;
+		} else {
+			Material var6 = var1.getBlockMaterial(var2, var3 + 1, var4);
+			return var6 != Material.snow && var6 != Material.builtSnow ? 3 : 68;
+		}
+	}
+
+	public int colorMultiplier(IBlockAccess var1, int var2, int var3, int var4) {
+		var1.getWorldChunkManager().func_4069_a(var2, var4, 1, 1);
+		double var5 = var1.getWorldChunkManager().temperature[0];
+		double var7 = var1.getWorldChunkManager().humidity[0];
+		return ColorizerGrass.getGrassColor(var5, var7);
+	}
+
 	public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			if(var1.getBlockLightValue(var2, var3 + 1, var4) < 4 && Block.lightOpacity[var1.getBlockId(var2, var3 + 1, var4)] > 2) {
 				if(var5.nextInt(4) != 0) {
 					return;

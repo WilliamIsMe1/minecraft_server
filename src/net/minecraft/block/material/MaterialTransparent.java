@@ -5,7 +5,7 @@ import net.minecraft.map.MapColor;
 public class MaterialTransparent extends Material {
 	public MaterialTransparent(MapColor var1) {
 		super(var1);
-		this.func_27089_f();
+		this.setIsGroundCover();
 	}
 
 	public boolean isSolid() {

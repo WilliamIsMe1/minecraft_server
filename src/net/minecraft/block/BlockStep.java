@@ -61,7 +61,7 @@ public class BlockStep extends Block {
 		return var1;
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return this.blockType;
 	}
 }

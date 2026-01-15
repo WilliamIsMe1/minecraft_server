@@ -6,7 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.tileentity.TileEntityPiston;
 import net.minecraft.entity.living.EntityLiving;
 import net.minecraft.entity.living.EntityPlayer;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -39,21 +39,21 @@ public class BlockPistonBase extends net.minecraft.block.core.Block {
 	public void onBlockPlacedBy(net.minecraft.world.World var1, int var2, int var3, int var4, EntityLiving var5) {
 		int var6 = determineOrientation(var1, var2, var3, var4, (net.minecraft.entity.living.EntityPlayer)var5);
 		var1.setBlockMetadataWithNotify(var2, var3, var4, var6);
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			this.updatePistonState(var1, var2, var3, var4);
 		}
 
 	}
 
 	public void onNeighborBlockChange(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
-		if(!var1.singleplayerWorld && !this.ignoreUpdates) {
+		if(var1.multiplayerWorld && !this.ignoreUpdates) {
 			this.updatePistonState(var1, var2, var3, var4);
 		}
 
 	}
 
 	public void onBlockAdded(net.minecraft.world.World var1, int var2, int var3, int var4) {
-		if(!var1.singleplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
+		if(var1.multiplayerWorld && var1.getBlockTileEntity(var2, var3, var4) == null) {
 			this.updatePistonState(var1, var2, var3, var4);
 		}
 
@@ -177,7 +177,7 @@ public class BlockPistonBase extends net.minecraft.block.core.Block {
 		super.getCollidingBoundingBoxes(var1, var2, var3, var4, var5, var6);
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 

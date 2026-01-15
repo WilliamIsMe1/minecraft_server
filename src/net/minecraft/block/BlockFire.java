@@ -2,7 +2,7 @@ package net.minecraft.block;
 
 import net.minecraft.block.core.Block;
 import net.minecraft.block.core.IBlockAccess;
-import net.minecraft.src.AxisAlignedBB;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
@@ -12,7 +12,7 @@ public class BlockFire extends Block {
 	private int[] chanceToEncourageFire = new int[256];
 	private int[] abilityToCatchFire = new int[256];
 
-	protected BlockFire(int var1, int var2) {
+	public BlockFire(int var1, int var2) {
 		super(var1, var2, Material.fire);
 		this.setTickOnLoad(true);
 	}
@@ -42,7 +42,7 @@ public class BlockFire extends Block {
 		return false;
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
@@ -55,7 +55,7 @@ public class BlockFire extends Block {
 	}
 
 	public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-		boolean var6 = var1.getBlockId(var2, var3 - 1, var4) == Block.bloodStone.blockID;
+		boolean var6 = var1.getBlockId(var2, var3 - 1, var4) == Block.netherrack.blockID;
 		if(!this.canPlaceBlockAt(var1, var2, var3, var4)) {
 			var1.setBlockWithNotify(var2, var3, var4, 0);
 		}

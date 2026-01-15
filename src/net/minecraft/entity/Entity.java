@@ -8,7 +8,8 @@ import net.minecraft.core.Vec3D;
 import net.minecraft.entity.living.EntityLiving;
 import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.item.core.ItemStack;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.misc.DataWatcher;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.nbt.NBTTagList;
 import net.minecraft.world.World;
@@ -37,7 +38,7 @@ public abstract class Entity {
 	public float rotationPitch;
 	public float prevRotationYaw;
 	public float prevRotationPitch;
-	public final AxisAlignedBB boundingBox = AxisAlignedBB.getBoundingBox(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+	public final net.minecraft.misc.AxisAlignedBB boundingBox = net.minecraft.misc.AxisAlignedBB.getBoundingBox(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
 	public boolean onGround = false;
 	public boolean isCollidedHorizontally;
 	public boolean isCollidedVertically;
@@ -70,7 +71,7 @@ public abstract class Entity {
 	public int air = 300;
 	private boolean firstUpdate = true;
 	protected boolean isImmuneToFire = false;
-	protected DataWatcher dataWatcher = new DataWatcher();
+	protected net.minecraft.misc.DataWatcher dataWatcher = new net.minecraft.misc.DataWatcher();
 	public float field_31001_bF = 0.0F;
 	private double entityRiderPitchDelta;
 	private double entityRiderYawDelta;
@@ -173,7 +174,7 @@ public abstract class Entity {
 			this.inWater = false;
 		}
 
-		if(this.worldObj.singleplayerWorld) {
+		if(!this.worldObj.multiplayerWorld) {
 			this.fire = 0;
 		} else if(this.fire > 0) {
 			if(this.isImmuneToFire) {
@@ -198,7 +199,7 @@ public abstract class Entity {
 			this.kill();
 		}
 
-		if(!this.worldObj.singleplayerWorld) {
+		if(this.worldObj.multiplayerWorld) {
 			this.setFlag(0, this.fire > 0);
 			this.setFlag(2, this.ridingEntity != null);
 		}
@@ -219,7 +220,7 @@ public abstract class Entity {
 	}
 
 	public boolean isOffsetPositionInLiquid(double var1, double var3, double var5) {
-		AxisAlignedBB var7 = this.boundingBox.getOffsetBoundingBox(var1, var3, var5);
+		net.minecraft.misc.AxisAlignedBB var7 = this.boundingBox.getOffsetBoundingBox(var1, var3, var5);
 		List var8 = this.worldObj.getCollidingBoundingBoxes(this, var7);
 		return var8.size() > 0 ? false : !this.worldObj.getIsAnyLiquid(var7);
 	}
@@ -247,7 +248,7 @@ public abstract class Entity {
 			double var11 = var1;
 			double var13 = var3;
 			double var15 = var5;
-			AxisAlignedBB var17 = this.boundingBox.copy();
+			net.minecraft.misc.AxisAlignedBB var17 = this.boundingBox.copy();
 			boolean var18 = this.onGround && this.isSneaking();
 			if(var18) {
 				double var19;
@@ -275,7 +276,7 @@ public abstract class Entity {
 			List var35 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.addCoord(var1, var3, var5));
 
 			for(int var20 = 0; var20 < var35.size(); ++var20) {
-				var3 = ((AxisAlignedBB)var35.get(var20)).calculateYOffset(this.boundingBox, var3);
+				var3 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var20)).calculateYOffset(this.boundingBox, var3);
 			}
 
 			this.boundingBox.offset(0.0D, var3, 0.0D);
@@ -289,7 +290,7 @@ public abstract class Entity {
 
 			int var21;
 			for(var21 = 0; var21 < var35.size(); ++var21) {
-				var1 = ((AxisAlignedBB)var35.get(var21)).calculateXOffset(this.boundingBox, var1);
+				var1 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var21)).calculateXOffset(this.boundingBox, var1);
 			}
 
 			this.boundingBox.offset(var1, 0.0D, 0.0D);
@@ -300,7 +301,7 @@ public abstract class Entity {
 			}
 
 			for(var21 = 0; var21 < var35.size(); ++var21) {
-				var5 = ((AxisAlignedBB)var35.get(var21)).calculateZOffset(this.boundingBox, var5);
+				var5 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var21)).calculateZOffset(this.boundingBox, var5);
 			}
 
 			this.boundingBox.offset(0.0D, 0.0D, var5);
@@ -320,12 +321,12 @@ public abstract class Entity {
 				var1 = var11;
 				var3 = (double)this.stepHeight;
 				var5 = var15;
-				AxisAlignedBB var27 = this.boundingBox.copy();
+				net.minecraft.misc.AxisAlignedBB var27 = this.boundingBox.copy();
 				this.boundingBox.setBB(var17);
 				var35 = this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox.addCoord(var11, var3, var15));
 
 				for(var28 = 0; var28 < var35.size(); ++var28) {
-					var3 = ((AxisAlignedBB)var35.get(var28)).calculateYOffset(this.boundingBox, var3);
+					var3 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var28)).calculateYOffset(this.boundingBox, var3);
 				}
 
 				this.boundingBox.offset(0.0D, var3, 0.0D);
@@ -336,7 +337,7 @@ public abstract class Entity {
 				}
 
 				for(var28 = 0; var28 < var35.size(); ++var28) {
-					var1 = ((AxisAlignedBB)var35.get(var28)).calculateXOffset(this.boundingBox, var1);
+					var1 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var28)).calculateXOffset(this.boundingBox, var1);
 				}
 
 				this.boundingBox.offset(var1, 0.0D, 0.0D);
@@ -347,7 +348,7 @@ public abstract class Entity {
 				}
 
 				for(var28 = 0; var28 < var35.size(); ++var28) {
-					var5 = ((AxisAlignedBB)var35.get(var28)).calculateZOffset(this.boundingBox, var5);
+					var5 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var28)).calculateZOffset(this.boundingBox, var5);
 				}
 
 				this.boundingBox.offset(0.0D, 0.0D, var5);
@@ -365,7 +366,7 @@ public abstract class Entity {
 					var3 = (double)(-this.stepHeight);
 
 					for(var28 = 0; var28 < var35.size(); ++var28) {
-						var3 = ((AxisAlignedBB)var35.get(var28)).calculateYOffset(this.boundingBox, var3);
+						var3 = ((net.minecraft.misc.AxisAlignedBB)var35.get(var28)).calculateYOffset(this.boundingBox, var3);
 					}
 
 					this.boundingBox.offset(0.0D, var3, 0.0D);
@@ -425,7 +426,7 @@ public abstract class Entity {
 					if(this.worldObj.getBlockId(var38, var26 + 1, var39) == Block.snow.blockID) {
 						var29 = Block.snow.stepSound;
 						this.worldObj.playSoundAtEntity(this, var29.func_737_c(), var29.getVolume() * 0.15F, var29.getPitch());
-					} else if(!Block.blocksList[var28].blockMaterial.getIsLiquid()) {
+					} else if(!Block.blocksList[var28].blockMaterial.isLiquid()) {
 						this.worldObj.playSoundAtEntity(this, var29.func_737_c(), var29.getVolume() * 0.15F, var29.getPitch());
 					}
 
@@ -489,7 +490,7 @@ public abstract class Entity {
 
 	}
 
-	public AxisAlignedBB getBoundingBox() {
+	public net.minecraft.misc.AxisAlignedBB getBoundingBox() {
 		return null;
 	}
 

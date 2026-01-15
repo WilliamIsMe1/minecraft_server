@@ -15,7 +15,7 @@ import java.util.Random;
 public class BlockChest extends BlockContainer {
 	private Random random = new Random();
 
-	protected BlockChest(int var1) {
+	public BlockChest(int var1) {
 		super(var1, Material.wood);
 		this.blockIndexInTexture = 26;
 	}
@@ -108,7 +108,7 @@ public class BlockChest extends BlockContainer {
 				var6 = new InventoryLargeChest("Large chest", (net.minecraft.item.container.inventory.IInventory)var6, (net.minecraft.block.tileentity.TileEntityChest)var1.getBlockTileEntity(var2, var3, var4 + 1));
 			}
 
-			if(var1.singleplayerWorld) {
+			if(!var1.multiplayerWorld) {
 				return true;
 			} else {
 				var5.displayGUIChest((IInventory)var6);

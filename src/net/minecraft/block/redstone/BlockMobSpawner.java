@@ -8,7 +8,7 @@ import net.minecraft.block.tileentity.TileEntityMobSpawner;
 import java.util.Random;
 
 public class BlockMobSpawner extends BlockContainer {
-	protected BlockMobSpawner(int var1, int var2) {
+	public BlockMobSpawner(int var1, int var2) {
 		super(var1, var2, Material.rock);
 	}
 

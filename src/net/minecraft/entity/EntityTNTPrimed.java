@@ -55,7 +55,7 @@ public class EntityTNTPrimed extends net.minecraft.entity.Entity {
 		}
 
 		if(this.fuse-- <= 0) {
-			if(!this.worldObj.singleplayerWorld) {
+			if(this.worldObj.multiplayerWorld) {
 				this.setEntityDead();
 				this.explode();
 			} else {

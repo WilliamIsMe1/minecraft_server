@@ -7,7 +7,8 @@ import net.minecraft.entity.living.EntityPlayer;
 import net.minecraft.entity.living.creature.animal.EntityChicken;
 import net.minecraft.item.core.ItemStack;
 import net.minecraft.item.core.Item;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -110,14 +111,14 @@ public class EntityEgg extends net.minecraft.entity.Entity {
 
 		net.minecraft.core.Vec3D var15 = net.minecraft.core.Vec3D.createVector(this.posX, this.posY, this.posZ);
 		net.minecraft.core.Vec3D var2 = net.minecraft.core.Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-		MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var15, var2);
+		net.minecraft.misc.MovingObjectPosition var3 = this.worldObj.rayTraceBlocks(var15, var2);
 		var15 = net.minecraft.core.Vec3D.createVector(this.posX, this.posY, this.posZ);
 		var2 = net.minecraft.core.Vec3D.createVector(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 		if(var3 != null) {
 			var2 = Vec3D.createVector(var3.hitVec.xCoord, var3.hitVec.yCoord, var3.hitVec.zCoord);
 		}
 
-		if(!this.worldObj.singleplayerWorld) {
+		if(this.worldObj.multiplayerWorld) {
 			net.minecraft.entity.Entity var4 = null;
 			List var5 = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
 			double var6 = 0.0D;
@@ -127,7 +128,7 @@ public class EntityEgg extends net.minecraft.entity.Entity {
 				if(var9.canBeCollidedWith() && (var9 != this.field_20083_aj || this.field_20079_al >= 5)) {
 					float var10 = 0.3F;
 					AxisAlignedBB var11 = var9.boundingBox.expand((double)var10, (double)var10, (double)var10);
-					MovingObjectPosition var12 = var11.func_706_a(var15, var2);
+					net.minecraft.misc.MovingObjectPosition var12 = var11.func_706_a(var15, var2);
 					if(var12 != null) {
 						double var13 = var15.distanceTo(var12.hitVec);
 						if(var13 < var6 || var6 == 0.0D) {
@@ -147,7 +148,7 @@ public class EntityEgg extends net.minecraft.entity.Entity {
 			if(var3.entityHit != null && var3.entityHit.attackEntityFrom(this.field_20083_aj, 0)) {
 			}
 
-			if(!this.worldObj.singleplayerWorld && this.rand.nextInt(8) == 0) {
+			if(this.worldObj.multiplayerWorld && this.rand.nextInt(8) == 0) {
 				byte var16 = 1;
 				if(this.rand.nextInt(32) == 0) {
 					var16 = 4;

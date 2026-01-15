@@ -1,7 +1,7 @@
 package net.minecraft.map;
 
+import net.minecraft.core.CompressedStreamTools;
 import net.minecraft.core.save.ISaveHandler;
-import net.minecraft.src.*;
 import net.minecraft.util.nbt.NBTBase;
 import net.minecraft.util.nbt.NBTTagShort;
 
@@ -43,7 +43,7 @@ public class MapStorage {
 						}
 
 						FileInputStream var5 = new FileInputStream(var4);
-						net.minecraft.util.nbt.NBTTagCompound var6 = CompressedStreamTools.func_770_a(var5);
+						net.minecraft.util.nbt.NBTTagCompound var6 = net.minecraft.core.CompressedStreamTools.func_770_a(var5);
 						var5.close();
 						var3.func_28148_a(var6.getCompoundTag("data"));
 					}
@@ -95,7 +95,7 @@ public class MapStorage {
 					net.minecraft.util.nbt.NBTTagCompound var4 = new net.minecraft.util.nbt.NBTTagCompound();
 					var4.setCompoundTag("data", var3);
 					FileOutputStream var5 = new FileOutputStream(var2);
-					CompressedStreamTools.writeGzippedCompoundToOutputStream(var4, var5);
+					net.minecraft.core.CompressedStreamTools.writeGzippedCompoundToOutputStream(var4, var5);
 					var5.close();
 				}
 			} catch (Exception var6) {
@@ -115,7 +115,7 @@ public class MapStorage {
 			File var1 = this.field_28180_a.func_28111_b("idcounts");
 			if(var1 != null && var1.exists()) {
 				DataInputStream var2 = new DataInputStream(new FileInputStream(var1));
-				net.minecraft.util.nbt.NBTTagCompound var3 = CompressedStreamTools.func_774_a(var2);
+				net.minecraft.util.nbt.NBTTagCompound var3 = net.minecraft.core.CompressedStreamTools.func_774_a(var2);
 				var2.close();
 				Iterator var4 = var3.func_28107_c().iterator();
 

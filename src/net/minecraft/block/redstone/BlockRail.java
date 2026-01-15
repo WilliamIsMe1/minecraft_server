@@ -4,7 +4,8 @@ import net.minecraft.block.core.Block;
 import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.core.Vec3D;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
+import net.minecraft.misc.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -14,14 +15,14 @@ public class BlockRail extends net.minecraft.block.core.Block {
 
 	public static final boolean func_27029_g(net.minecraft.world.World var0, int var1, int var2, int var3) {
 		int var4 = var0.getBlockId(var1, var2, var3);
-		return var4 == net.minecraft.block.core.Block.minecartTrack.blockID || var4 == net.minecraft.block.core.Block.railPowered.blockID || var4 == net.minecraft.block.core.Block.railDetector.blockID;
+		return var4 == net.minecraft.block.core.Block.rail.blockID || var4 == net.minecraft.block.core.Block.railPowered.blockID || var4 == net.minecraft.block.core.Block.railDetector.blockID;
 	}
 
 	public static final boolean func_27030_c(int var0) {
-		return var0 == net.minecraft.block.core.Block.minecartTrack.blockID || var0 == net.minecraft.block.core.Block.railPowered.blockID || var0 == net.minecraft.block.core.Block.railDetector.blockID;
+		return var0 == net.minecraft.block.core.Block.rail.blockID || var0 == net.minecraft.block.core.Block.railPowered.blockID || var0 == net.minecraft.block.core.Block.railDetector.blockID;
 	}
 
-	protected BlockRail(int var1, int var2, boolean var3) {
+	public BlockRail(int var1, int var2, boolean var3) {
 		super(var1, var2, Material.circuits);
 		this.field_27034_a = var3;
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 2.0F / 16.0F, 1.0F);
@@ -39,9 +40,9 @@ public class BlockRail extends net.minecraft.block.core.Block {
 		return false;
 	}
 
-	public MovingObjectPosition collisionRayTrace(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.core.Vec3D var5, Vec3D var6) {
-		this.setBlockBoundsBasedOnState(var1, var2, var3, var4);
-		return super.collisionRayTrace(var1, var2, var3, var4, var5, var6);
+	public MovingObjectPosition collisionRayTrace(net.minecraft.world.World world, int var2, int var3, int var4, net.minecraft.core.Vec3D var5, Vec3D var6) {
+		this.setBlockBoundsBasedOnState(world, var2, var3, var4);
+		return super.collisionRayTrace(world, var2, var3, var4, var5, var6);
 	}
 
 	public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
@@ -66,7 +67,7 @@ public class BlockRail extends net.minecraft.block.core.Block {
 		return this.blockIndexInTexture;
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
@@ -79,14 +80,14 @@ public class BlockRail extends net.minecraft.block.core.Block {
 	}
 
 	public void onBlockAdded(net.minecraft.world.World var1, int var2, int var3, int var4) {
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			this.func_4038_g(var1, var2, var3, var4, true);
 		}
 
 	}
 
 	public void onNeighborBlockChange(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);
 			int var7 = var6;
 			if(this.field_27034_a) {
@@ -143,7 +144,7 @@ public class BlockRail extends net.minecraft.block.core.Block {
 	}
 
 	private void func_4038_g(net.minecraft.world.World var1, int var2, int var3, int var4, boolean var5) {
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			(new RailLogic(this, var1, var2, var3, var4)).func_596_a(var1.isBlockIndirectlyGettingPowered(var2, var3, var4), var5);
 		}
 	}

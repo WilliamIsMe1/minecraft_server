@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
 public class BlockSponge extends Block {
-	protected BlockSponge(int var1) {
+	public BlockSponge(int var1) {
 		super(var1, Material.sponge);
 		this.blockIndexInTexture = 48;
 	}

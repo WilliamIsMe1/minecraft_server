@@ -4,13 +4,13 @@ import net.minecraft.block.core.Block;
 import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.living.EntityPlayer;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
 public class BlockCake extends Block {
-	protected BlockCake(int var1, int var2) {
+	public BlockCake(int var1, int var2) {
 		super(var1, var2, Material.cakeMaterial);
 		this.setTickOnLoad(true);
 	}
@@ -23,7 +23,7 @@ public class BlockCake extends Block {
 		this.setBlockBounds(var7, 0.0F, var6, 1.0F - var6, var8, 1.0F - var6);
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public net.minecraft.misc.AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
 		int var5 = var1.getBlockMetadata(var2, var3, var4);
 		float var6 = 1.0F / 16.0F;
 		float var7 = (float)(1 + var5 * 2) / 16.0F;
@@ -39,7 +39,7 @@ public class BlockCake extends Block {
 		return var1 == 1 ? this.blockIndexInTexture : (var1 == 0 ? this.blockIndexInTexture + 3 : this.blockIndexInTexture + 1);
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 

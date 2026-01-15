@@ -9,7 +9,7 @@ import net.minecraft.item.core.ItemStack;
 import net.minecraft.world.World;
 
 public class BlockJukeBox extends BlockContainer {
-	protected BlockJukeBox(int var1, int var2) {
+	public BlockJukeBox(int var1, int var2) {
 		super(var1, var2, Material.wood);
 	}
 
@@ -27,7 +27,7 @@ public class BlockJukeBox extends BlockContainer {
 	}
 
 	public void ejectRecord(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			net.minecraft.block.tileentity.TileEntityRecordPlayer var6 = (net.minecraft.block.tileentity.TileEntityRecordPlayer)var1.getBlockTileEntity(var2, var3, var4);
 			var6.field_28009_a = var5;
 			var6.onInventoryChanged();
@@ -36,7 +36,7 @@ public class BlockJukeBox extends BlockContainer {
 	}
 
 	public void func_28035_b_(net.minecraft.world.World var1, int var2, int var3, int var4) {
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			net.minecraft.block.tileentity.TileEntityRecordPlayer var5 = (net.minecraft.block.tileentity.TileEntityRecordPlayer)var1.getBlockTileEntity(var2, var3, var4);
 			int var6 = var5.field_28009_a;
 			if(var6 != 0) {
@@ -62,7 +62,7 @@ public class BlockJukeBox extends BlockContainer {
 	}
 
 	public void dropBlockAsItemWithChance(World var1, int var2, int var3, int var4, int var5, float var6) {
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			super.dropBlockAsItemWithChance(var1, var2, var3, var4, var5, var6);
 		}
 	}

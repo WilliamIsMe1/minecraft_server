@@ -5,11 +5,11 @@ import net.minecraft.map.MapColor;
 public class MaterialLiquid extends Material {
 	public MaterialLiquid(MapColor var1) {
 		super(var1);
-		this.func_27089_f();
+		this.setIsGroundCover();
 		this.setNoPushMobility();
 	}
 
-	public boolean getIsLiquid() {
+	public boolean isLiquid() {
 		return true;
 	}
 

@@ -3,7 +3,7 @@ package net.minecraft.block.redstone;
 import net.minecraft.block.core.Block;
 import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class BlockPistonExtension extends net.minecraft.block.core.Block {
 		return false;
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 

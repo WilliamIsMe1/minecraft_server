@@ -32,7 +32,7 @@ public class ItemPainting extends Item {
 
 			net.minecraft.entity.EntityPainting var9 = new EntityPainting(var3, var4, var5, var6, var8);
 			if(var9.onValidSurface()) {
-				if(!var3.singleplayerWorld) {
+				if(var3.multiplayerWorld) {
 					var3.entityJoinedWorld(var9);
 				}
 

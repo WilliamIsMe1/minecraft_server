@@ -5,7 +5,7 @@ import net.minecraft.block.redstone.BlockDoor;
 import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.src.MCHash;
+import net.minecraft.core.MCHash;
 import net.minecraft.util.MathHelper;
 
 public class Pathfinder {

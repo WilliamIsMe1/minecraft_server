@@ -3,8 +3,9 @@ package net.minecraft.block.redstone;
 import net.minecraft.block.core.Block;
 import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.render.block.model.ModelBed;
 import net.minecraft.item.core.Item;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPosition;
 
@@ -34,7 +35,7 @@ public class BlockRedstoneWire extends net.minecraft.block.core.Block {
 		return false;
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
@@ -184,7 +185,7 @@ public class BlockRedstoneWire extends net.minecraft.block.core.Block {
 
 	public void onBlockAdded(net.minecraft.world.World var1, int var2, int var3, int var4) {
 		super.onBlockAdded(var1, var2, var3, var4);
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			this.updateAndPropagateCurrentStrength(var1, var2, var3, var4);
 			var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.blockID);
 			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.blockID);
@@ -221,7 +222,7 @@ public class BlockRedstoneWire extends net.minecraft.block.core.Block {
 
 	public void onBlockRemoval(net.minecraft.world.World var1, int var2, int var3, int var4) {
 		super.onBlockRemoval(var1, var2, var3, var4);
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			var1.notifyBlocksOfNeighborChange(var2, var3 + 1, var4, this.blockID);
 			var1.notifyBlocksOfNeighborChange(var2, var3 - 1, var4, this.blockID);
 			this.updateAndPropagateCurrentStrength(var1, var2, var3, var4);
@@ -266,7 +267,7 @@ public class BlockRedstoneWire extends net.minecraft.block.core.Block {
 	}
 
 	public void onNeighborBlockChange(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);
 			boolean var7 = this.canPlaceBlockAt(var1, var2, var3, var4);
 			if(!var7) {

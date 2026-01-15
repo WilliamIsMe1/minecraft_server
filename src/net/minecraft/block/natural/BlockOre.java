@@ -12,7 +12,19 @@ public class BlockOre extends Block {
 	}
 
 	public int idDropped(int var1, Random var2) {
-		return this.blockID == Block.oreCoal.blockID ? Item.coal.shiftedIndex : (this.blockID == Block.oreDiamond.blockID ? Item.diamond.shiftedIndex : (this.blockID == Block.oreLapis.blockID ? Item.dyePowder.shiftedIndex : this.blockID));
+		if (blockID == Block.oreCoal.blockID) {
+			return Item.coal.shiftedIndex;
+		} else {
+			if (blockID == Block.oreDiamond.blockID) {
+				return Item.diamond.shiftedIndex;
+			} else {
+				if (blockID == Block.oreLapis.blockID) {
+					return Item.dyePowder.shiftedIndex;
+				} else {
+					return blockID;
+				}
+			}
+		}
 	}
 
 	public int quantityDropped(Random var1) {

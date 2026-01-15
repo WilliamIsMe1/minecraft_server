@@ -4,18 +4,18 @@ import net.minecraft.block.core.Block;
 import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.living.EntityPlayer;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.Random;
 
 public class BlockButton extends Block {
-	protected BlockButton(int var1, int var2) {
+	public BlockButton(int var1, int var2) {
 		super(var1, var2, Material.circuits);
 		this.setTickOnLoad(true);
 	}
 
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World var1, int var2, int var3, int var4) {
 		return null;
 	}
 
@@ -27,19 +27,19 @@ public class BlockButton extends Block {
 		return false;
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
-	public boolean canPlaceBlockOnSide(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
-		return var5 == 2 && var1.isBlockNormalCube(var2, var3, var4 + 1) ? true : (var5 == 3 && var1.isBlockNormalCube(var2, var3, var4 - 1) ? true : (var5 == 4 && var1.isBlockNormalCube(var2 + 1, var3, var4) ? true : var5 == 5 && var1.isBlockNormalCube(var2 - 1, var3, var4)));
+	public boolean canPlaceBlockOnSide(World var1, int var2, int var3, int var4, int var5) {
+		return var5 == 2 && var1.isBlockNormalCube(var2, var3, var4 + 1) || (var5 == 3 && var1.isBlockNormalCube(var2, var3, var4 - 1) || (var5 == 4 && var1.isBlockNormalCube(var2 + 1, var3, var4) || var5 == 5 && var1.isBlockNormalCube(var2 - 1, var3, var4)));
 	}
 
-	public boolean canPlaceBlockAt(net.minecraft.world.World var1, int var2, int var3, int var4) {
-		return var1.isBlockNormalCube(var2 - 1, var3, var4) ? true : (var1.isBlockNormalCube(var2 + 1, var3, var4) ? true : (var1.isBlockNormalCube(var2, var3, var4 - 1) ? true : var1.isBlockNormalCube(var2, var3, var4 + 1)));
+	public boolean canPlaceBlockAt(World var1, int var2, int var3, int var4) {
+		return var1.isBlockNormalCube(var2 - 1, var3, var4) || (var1.isBlockNormalCube(var2 + 1, var3, var4) || (var1.isBlockNormalCube(var2, var3, var4 - 1) || var1.isBlockNormalCube(var2, var3, var4 + 1)));
 	}
 
-	public void onBlockPlaced(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
+	public void onBlockPlaced(World var1, int var2, int var3, int var4, int var5) {
 		int var6 = var1.getBlockMetadata(var2, var3, var4);
 		int var7 = var6 & 8;
 		var6 &= 7;
@@ -58,17 +58,14 @@ public class BlockButton extends Block {
 		var1.setBlockMetadataWithNotify(var2, var3, var4, var6 + var7);
 	}
 
-	private int getOrientation(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	private int getOrientation(World var1, int var2, int var3, int var4) {
 		return var1.isBlockNormalCube(var2 - 1, var3, var4) ? 1 : (var1.isBlockNormalCube(var2 + 1, var3, var4) ? 2 : (var1.isBlockNormalCube(var2, var3, var4 - 1) ? 3 : (var1.isBlockNormalCube(var2, var3, var4 + 1) ? 4 : 1)));
 	}
 
-	public void onNeighborBlockChange(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
-		if(this.func_322_g(var1, var2, var3, var4)) {
+	public void onNeighborBlockChange(World var1, int var2, int var3, int var4, int var5) {
+		if(this.func_305_h(var1, var2, var3, var4)) {
 			int var6 = var1.getBlockMetadata(var2, var3, var4) & 7;
-			boolean var7 = false;
-			if(!var1.isBlockNormalCube(var2 - 1, var3, var4) && var6 == 1) {
-				var7 = true;
-			}
+			boolean var7 = !var1.isBlockNormalCube(var2 - 1, var3, var4) && var6 == 1;
 
 			if(!var1.isBlockNormalCube(var2 + 1, var3, var4) && var6 == 2) {
 				var7 = true;
@@ -90,7 +87,7 @@ public class BlockButton extends Block {
 
 	}
 
-	private boolean func_322_g(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	private boolean func_305_h(World var1, int var2, int var3, int var4) {
 		if(!this.canPlaceBlockAt(var1, var2, var3, var4)) {
 			this.dropBlockAsItem(var1, var2, var3, var4, var1.getBlockMetadata(var2, var3, var4));
 			var1.setBlockWithNotify(var2, var3, var4, 0);
@@ -100,7 +97,7 @@ public class BlockButton extends Block {
 		}
 	}
 
-	public void setBlockBoundsBasedOnState(net.minecraft.block.core.IBlockAccess var1, int var2, int var3, int var4) {
+	public void setBlockBoundsBasedOnState(IBlockAccess var1, int var2, int var3, int var4) {
 		int var5 = var1.getBlockMetadata(var2, var3, var4);
 		int var6 = var5 & 7;
 		boolean var7 = (var5 & 8) > 0;
@@ -124,11 +121,11 @@ public class BlockButton extends Block {
 
 	}
 
-	public void onBlockClicked(net.minecraft.world.World var1, int var2, int var3, int var4, net.minecraft.entity.living.EntityPlayer var5) {
+	public void onBlockClicked(World var1, int var2, int var3, int var4, EntityPlayer var5) {
 		this.blockActivated(var1, var2, var3, var4, var5);
 	}
 
-	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {
+	public boolean blockActivated(World var1, int var2, int var3, int var4, EntityPlayer var5) {
 		int var6 = var1.getBlockMetadata(var2, var3, var4);
 		int var7 = var6 & 7;
 		int var8 = 8 - (var6 & 8);
@@ -156,7 +153,7 @@ public class BlockButton extends Block {
 		}
 	}
 
-	public void onBlockRemoval(net.minecraft.world.World var1, int var2, int var3, int var4) {
+	public void onBlockRemoval(World var1, int var2, int var3, int var4) {
 		int var5 = var1.getBlockMetadata(var2, var3, var4);
 		if((var5 & 8) > 0) {
 			var1.notifyBlocksOfNeighborChange(var2, var3, var4, this.blockID);
@@ -181,13 +178,13 @@ public class BlockButton extends Block {
 		return (var1.getBlockMetadata(var2, var3, var4) & 8) > 0;
 	}
 
-	public boolean isIndirectlyPoweringTo(net.minecraft.world.World var1, int var2, int var3, int var4, int var5) {
+	public boolean isIndirectlyPoweringTo(World var1, int var2, int var3, int var4, int var5) {
 		int var6 = var1.getBlockMetadata(var2, var3, var4);
 		if((var6 & 8) == 0) {
 			return false;
 		} else {
 			int var7 = var6 & 7;
-			return var7 == 5 && var5 == 1 ? true : (var7 == 4 && var5 == 2 ? true : (var7 == 3 && var5 == 3 ? true : (var7 == 2 && var5 == 4 ? true : var7 == 1 && var5 == 5)));
+			return var7 == 5 && var5 == 1 || (var7 == 4 && var5 == 2 || (var7 == 3 && var5 == 3 || (var7 == 2 && var5 == 4 || var7 == 1 && var5 == 5)));
 		}
 	}
 
@@ -196,7 +193,7 @@ public class BlockButton extends Block {
 	}
 
 	public void updateTick(World var1, int var2, int var3, int var4, Random var5) {
-		if(!var1.singleplayerWorld) {
+		if(var1.multiplayerWorld) {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);
 			if((var6 & 8) != 0) {
 				var1.setBlockMetadataWithNotify(var2, var3, var4, var6 & 7);
@@ -218,5 +215,12 @@ public class BlockButton extends Block {
 				var1.markBlocksDirty(var2, var3, var4, var2, var3, var4);
 			}
 		}
+	}
+
+	public void setBlockBoundsForItemRender() {
+		float var1 = 3.0F / 16.0F;
+		float var2 = 2.0F / 16.0F;
+		float var3 = 2.0F / 16.0F;
+		this.setBlockBounds(0.5F - var1, 0.5F - var2, 0.5F - var3, 0.5F + var1, 0.5F + var2, 0.5F + var3);
 	}
 }

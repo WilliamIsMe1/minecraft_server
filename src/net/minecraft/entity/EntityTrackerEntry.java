@@ -11,9 +11,9 @@ import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.item.core.ItemStack;
+import net.minecraft.misc.DataWatcher;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet40EntityMetadata;
-import net.minecraft.src.*;
 import net.minecraft.util.MathHelper;
 
 import java.util.HashSet;

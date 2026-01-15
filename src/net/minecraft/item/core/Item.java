@@ -269,7 +269,7 @@ public class Item {
 		return this.containerItem != null;
 	}
 
-	public String getNameLocalizedForStats() {
+	public String getStatName() {
 		return StatCollector.translateToLocal(this.getItemName() + ".name");
 	}
 
@@ -284,6 +284,6 @@ public class Item {
 	}
 
 	static {
-		StatList.func_25086_b();
+		StatList.func_25151_b();
 	}
 }

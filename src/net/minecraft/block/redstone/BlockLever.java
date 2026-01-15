@@ -4,11 +4,11 @@ import net.minecraft.block.core.Block;
 import net.minecraft.block.core.IBlockAccess;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.living.EntityPlayer;
-import net.minecraft.src.*;
+import net.minecraft.misc.AxisAlignedBB;
 import net.minecraft.world.World;
 
 public class BlockLever extends Block {
-	protected BlockLever(int var1, int var2) {
+	public BlockLever(int var1, int var2) {
 		super(var1, var2, Material.circuits);
 	}
 
@@ -20,7 +20,7 @@ public class BlockLever extends Block {
 		return false;
 	}
 
-	public boolean isACube() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
@@ -134,7 +134,7 @@ public class BlockLever extends Block {
 	}
 
 	public boolean blockActivated(net.minecraft.world.World var1, int var2, int var3, int var4, EntityPlayer var5) {
-		if(var1.singleplayerWorld) {
+		if(!var1.multiplayerWorld) {
 			return true;
 		} else {
 			int var6 = var1.getBlockMetadata(var2, var3, var4);
